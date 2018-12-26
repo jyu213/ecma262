@@ -170,336 +170,335 @@
     </emu-clause>
 
     <emu-clause id="sec-strict-variant-of-ecmascript">
-      <h1>The Strict Variant of ECMAScript</h1>
-      <p>The ECMAScript Language recognizes the possibility that some users of the language may wish to restrict their usage of some features available in the language. They might do so in the interests of security, to avoid what they consider to be error-prone features, to get enhanced error checking, or for other reasons of their choosing. In support of this possibility, ECMAScript defines a strict variant of the language. The strict variant of the language excludes some specific syntactic and semantic features of the regular ECMAScript language and modifies the detailed semantics of some features. The strict variant also specifies additional error conditions that must be reported by throwing error exceptions in situations that are not specified as errors by the non-strict form of the language.</p>
-      <p>The strict variant of ECMAScript is commonly referred to as the <em>strict mode</em> of the language. Strict mode selection and use of the strict mode syntax and semantics of ECMAScript is explicitly made at the level of individual ECMAScript source text units. Because strict mode is selected at the level of a syntactic source text unit, strict mode only imposes restrictions that have local effect within such a source text unit. Strict mode does not restrict or modify any aspect of the ECMAScript semantics that must operate consistently across multiple source text units. A complete ECMAScript program may be composed of both strict mode and non-strict mode ECMAScript source text units. In this case, strict mode only applies when actually executing code that is defined within a strict mode source text unit.</p>
-      <p>In order to conform to this specification, an ECMAScript implementation must implement both the full unrestricted ECMAScript language and the strict variant of the ECMAScript language as defined by this specification. In addition, an implementation must support the combination of unrestricted and strict mode source text units into a single composite program.</p>
+      <h1>ECMAScript 的严格变体</h1>
+      <p>ECMAScript 语言认可有些用户希望限制使用语言中某些功能的可能性。他们这样做可能出于安全考虑，避免他们认为是容易出错的功能，获得增强的错误检查或其它原因。为了支持这种可能性，ECMAScript 定义了语言的严格变体。语言的严格变体，排除了 ECMAScript 语言的某些特定语法和语义特征，还修改了某些功能的语义。严格变体还指出了必须抛出错误异常报告的额外错误条件，即使在非严格模式语言下这些条件不属于错误。</p>
+      <p>ECMAScript 的严格变体通常被称为语言的<em>严格模式</em>。严格模式选择使用的 ECMAScript 严格模式的语法和语义，明确的适用于个别 ECMAScript 代码单元级别。由于严格模式适用于选择的语法代码单元级别，严格模式仅在这个代码单元内施加有局部效果的限制。严格模式不限制或修改任何必须运行在多个代码单元的 ECMAScript 语义层。一个 ECMAScript 程序可由严格模式和非严格模式的代码单元组成。在这种情况下，严格模式只使用于严格模式代码单元内实际执行的代码。</p>
+      <p>要遵循这一规范，ECMAScript 必须实现完全不受限制的  ECMAScript 语言和文本规范定义的 ECMAScript 语言的严格变体。此外，实现必须支持将无限制和严格模式源文本单元组合到单个复合程序中。</p>
     </emu-clause>
   </emu-clause>
 
   <emu-clause id="sec-terms-and-definitions">
-    <h1>Terms and Definitions</h1>
-    <p>For the purposes of this document, the following terms and definitions apply.</p>
+    <h1>术语和定义</h1>
+    <p>本文档将使用下列术语和定义。</p>
 
     <emu-clause id="sec-type">
-      <h1>type</h1>
-      <p>set of data values as defined in clause <emu-xref href="#sec-ecmascript-data-types-and-values"></emu-xref> of this specification</p>
+      <h1>类型(type)</h1>
+      <p>本规范子句中定义的数据值集 <emu-xref href="#sec-ecmascript-data-types-and-values"></emu-xref></p>
     </emu-clause>
 
     <emu-clause id="sec-primitive-value">
-      <h1>primitive value</h1>
-      <p>member of one of the types Undefined, Null, Boolean, Number, Symbol, or String as defined in clause <emu-xref href="#sec-ecmascript-data-types-and-values"></emu-xref></p>
+      <h1>原始值(primitive value)</h1>
+      <p>子句中定义的 Undefined, Null, Boolean, Number, Symbol, 或 String 类型之一 <emu-xref href="#sec-ecmascript-data-types-and-values"></emu-xref></p>
       <emu-note>
-        <p>A primitive value is a datum that is represented directly at the lowest level of the language implementation.</p>
+        <p>原始值是直接在语音实现的最低级别表示的数据。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-object">
-      <h1>object</h1>
-      <p>member of the type Object</p>
+      <h1>对象(object)</h1>
+      <p>对象类型的成员</p>
       <emu-note>
-        <p>An object is a collection of properties and has a single prototype object. The prototype may be the null value.</p>
+        <p>对象是属性的集合，并有一个原型对象。原型可以是 null。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-constructor">
-      <h1>constructor</h1>
-      <p>function object that creates and initializes objects</p>
+      <h1>构造函数(constructor)</h1>
+      <p>创建和初始化对象的函数对象。</p>
       <emu-note>
-        <p>The value of a constructor's `prototype` property is a prototype object that is used to implement inheritance and shared properties.</p>
+        <p>构造函数的 `prototype` 属性值是一个原型对象，它用来实现继承和共享属性。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-prototype">
-      <h1>prototype</h1>
-      <p>object that provides shared properties for other objects</p>
+      <h1>原型(prototype)</h1>
+      <p>为其他对象提供共享属性的对象</p>
       <emu-note>
-        <p>When a constructor creates an object, that object implicitly references the constructor's `prototype` property for the purpose of resolving property references. The constructor's `prototype` property can be referenced by the program expression <code><var>constructor</var>.prototype</code>, and properties added to an object's prototype are shared, through inheritance, by all objects sharing the prototype. Alternatively, a new object may be created with an explicitly specified prototype by using the `Object.create` built-in function.</p>
+        <p>当构造函数创建一个对象，为了解决对象的属性引用，该对象会隐式引用构造函数的 `prototype` 属性。通过程序表达式 <code><var>constructor</var>.prototype</code> 可以引用到构造函数的 prototype 属性，并且添加到对象原型里的属性，会通过继承与所有共享此原型的对象共享。另外，`Object.create` 内置函数，通过明确制定原型来创建一个对象。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-ordinary-object">
-      <h1>ordinary object</h1>
-      <p>object that has the default behaviour for the essential internal methods that must be supported by all objects</p>
+      <h1>普通对象(ordinary object)</h1>
+      <p>有默认行为和所有对象都支持的基本方法的对象。</p>
     </emu-clause>
 
     <emu-clause id="sec-exotic-object">
-      <h1>exotic object</h1>
-      <p>object that does not have the default behaviour for one or more of the essential internal methods</p>
+      <h1>异常对象(exotic object)</h1>
+      <p>不含或少含所以对象都支持的基本方法的对象。</p>
       <emu-note>
-        <p>Any object that is not an ordinary object is an exotic object.</p>
+        <p>任何对象只要不是普通对象就是异常对象。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-standard-object">
-      <h1>standard object</h1>
-      <p>object whose semantics are defined by this specification</p>
+      <h1>标准对象(standard object)</h1>
+      <p>任何语义符合本标准的对象</p>
     </emu-clause>
 
     <emu-clause id="sec-built-in-object">
-      <h1>built-in object</h1>
-      <p>object specified and supplied by an ECMAScript implementation</p>
+      <h1>内置对象(built-in object)</h1>
+      <p>由 ECMAScript 标准规定并提供的对象。</p>
       <emu-note>
-        <p>Standard built-in objects are defined in this specification. An ECMAScript implementation may specify and supply additional kinds of built-in objects. A <em>built-in constructor</em> is a built-in object that is also a constructor.</p>
+        <p>本标准定制了标准的内置对象。一个 ECMAScript 可能会包含其它更多内置对象。<em>内置构造函数</em> 是一个内置对象，也是一个构造函数。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-undefined-value">
-      <h1>undefined value</h1>
-      <p>primitive value used when a variable has not been assigned a value</p>
+      <h1>未定义值(undefined value)</h1>
+      <p>原始值，一个变量未被赋值时的默认值。</p>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-undefined-type">
-      <h1>Undefined type</h1>
-      <p>type whose sole value is the *undefined* value</p>
+      <h1>未定义类型(Undefined type)</h1>
+      <p>仅有 *undefined* 一个值得数据类型</p>
     </emu-clause>
 
     <emu-clause id="sec-null-value">
-      <h1>null value</h1>
-      <p>primitive value that represents the intentional absence of any object value</p>
+      <h1>空值(null value)</h1>
+      <p>原始值，任何有意使其为空的对象的值。</p>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-null-type">
-      <h1>Null type</h1>
-      <p>type whose sole value is the *null* value</p>
+      <h1>空类型(Null type)</h1>
+      <p>仅有 *null* 一个值得数据的类型</p>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-boolean-value">
-      <h1>Boolean value</h1>
-      <p>member of the Boolean type</p>
+      <h1>布尔值(Boolean value)</h1>
+      <p>布尔类型中的一个</p>
       <emu-note>
-        <p>There are only two Boolean values, *true* and *false*.</p>
+        <p>布尔类型只有 *true* 和 *false* 两个值。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-boolean-type">
-      <h1>Boolean type</h1>
-      <p>type consisting of the primitive values *true* and *false*</p>
+      <h1>布尔类型(Boolean type)</h1>
+      <p>由 *true* 和 *false* 两个值构成的类型</p>
     </emu-clause>
 
     <emu-clause id="sec-boolean-object">
-      <h1>Boolean object</h1>
-      <p>member of the Object type that is an instance of the standard built-in `Boolean` constructor</p>
+      <h1>布尔对象(Boolean object)</h1>
+      <p>本标准内置的布尔构造函数生成的实例。</p>
       <emu-note>
-        <p>A Boolean object is created by using the `Boolean` constructor in a `new` expression, supplying a Boolean value as an argument. The resulting object has an internal slot whose value is the Boolean value. A Boolean object can be coerced to a Boolean value.</p>
+        <p>布尔对象是内置布尔构造器用 `new` 生成的实例，提供布尔值作为参数，得到的对象会内部有一个布尔值。布尔对象可以被强制转换为布尔值。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-string-value">
-      <h1>String value</h1>
-      <p>primitive value that is a finite ordered sequence of zero or more 16-bit unsigned integer values</p>
+      <h1>字符串值(String value)</h1>
+      <p>原始值，一个有限序列伙食零个或多个16位无符号整数。</p>
       <emu-note>
-        <p>A String value is a member of the String type. Each integer value in the sequence usually represents a single 16-bit unit of UTF-16 text. However, ECMAScript does not place any restrictions or requirements on the values except that they must be 16-bit unsigned integers.</p>
+        <p>字符串值是字符串类型的成员。序列中的每个整型值通常代表一个16位 utf-16 单元的文本。然而除了必须是16位无符号整数以外，ECMAScript 没有其它任何限制或要求。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-string-type">
-      <h1>String type</h1>
-      <p>set of all possible String values</p>
+      <h1>字符串类型(String type)</h1>
+      <p>所有可能得字符串集合。</p>
     </emu-clause>
 
     <emu-clause id="sec-string-object">
-      <h1>String object</h1>
-      <p>member of the Object type that is an instance of the standard built-in `String` constructor</p>
+      <h1>字符串对象(String object)</h1>
+      <p>本标准内置的字符串构造器生成的实例。</p>
       <emu-note>
-        <p>A String object is created by using the `String` constructor in a `new` expression, supplying a String value as an argument. The resulting object has an internal slot whose value is the String value. A String object can be coerced to a String value by calling the `String` constructor as a function (<emu-xref href="#sec-string-constructor-string-value"></emu-xref>).</p>
+        <p>字符串对象是使用 `new` 表达式中的 `String` 构造函数创建的，提供字符串值作为参数。生成的对象内部又一个字符串。通过将 `String` 构造函数作为函数调用，可以将字符串对象强制转换为字符串值。(<emu-xref href="#sec-string-constructor-string-value"></emu-xref>)</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-number-value">
-      <h1>Number value</h1>
-      <p>primitive value corresponding to a double-precision 64-bit binary format IEEE 754-2008 value</p>
+      <h1>数值(Number value)</h1>
+      <p>原始值，是一个 64 位双精度二进制，符合 IEEE 754-2008 规定。</p>
       <emu-note>
-        <p>A Number value is a member of the Number type and is a direct representation of a number.</p>
+        <p>数值使数值类型的成员，直接表现为一个数字。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-number-type">
-      <h1>Number type</h1>
-      <p>set of all possible Number values including the special &ldquo;Not-a-Number&rdquo; (NaN) value, positive infinity, and negative infinity</p>
+      <h1>数值类型(Number type)</h1>
+      <p>所有数值的集合，包括 &ldquo;Not-a-Number&rdquo; (NaN) 值, 正无穷和负无穷。</p>
     </emu-clause>
 
     <emu-clause id="sec-number-object">
-      <h1>Number object</h1>
-      <p>member of the Object type that is an instance of the standard built-in `Number` constructor</p>
+      <h1>数值对象(Number object)</h1>
+      <p>本标准内置的数值构造函数生成的实例。</p>
       <emu-note>
-        <p>A Number object is created by using the `Number` constructor in a `new` expression, supplying a number value as an argument. The resulting object has an internal slot whose value is the number value. A Number object can be coerced to a number value by calling the `Number` constructor as a function (<emu-xref href="#sec-number-constructor-number-value"></emu-xref>).</p>
+        <p>通过在 `new` 表达式中使用 `Number` 构造函数创建数值对象，提供数值作为参数。生成的对象内部有一个数值，通过将 `Number` 构造函数作为函数调用，可以将数值对象强制转换为数字值。(<emu-xref href="#sec-number-constructor-number-value"></emu-xref>)</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-infinity">
-      <h1>Infinity</h1>
-      <p>number value that is the positive infinite number value</p>
+      <h1>无穷大(Infinity)</h1>
+      <p>数值，指正无穷大。</p>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-nan">
-      <h1>NaN</h1>
-      <p>number value that is an IEEE 754-2008 &ldquo;Not-a-Number&rdquo; value</p>
+      <h1>非数值类型(NaN)</h1>
+      <p>数值，是 IEEE 754-2008 规定的 &ldquo;Not-a-Number&rdquo; 值。</p>
     </emu-clause>
 
     <emu-clause id="sec-symbol-value">
-      <h1>Symbol value</h1>
-      <p>primitive value that represents a unique, non-String Object property key</p>
+      <h1>符号值(Symbol value)</h1>
+      <p>原始值，代表一个独一无二的非字符串对象的属性值。</p>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-symbol-type">
-      <h1>Symbol type</h1>
-      <p>set of all possible Symbol values</p>
+      <h1>符号类型(Symbol type)</h1>
+      <p>所有可能的符号集合。</p>
     </emu-clause>
 
     <emu-clause id="sec-symbol-object">
-      <h1>Symbol object</h1>
-      <p>member of the Object type that is an instance of the standard built-in `Symbol` constructor</p>
+      <h1>符号对象(Symbol object)</h1>
+      <p>内置 `Symbol` 构造器生成的实例。</p>
     </emu-clause>
 
     <emu-clause id="sec-terms-and-definitions-function">
-      <h1>function</h1>
-      <p>member of the Object type that may be invoked as a subroutine</p>
+      <h1>函数(function)</h1>
+      <p>对象类型中可被当作子程序调用的一类。</p>
       <emu-note>
-        <p>In addition to its properties, a function contains executable code and state that determine how it behaves when invoked. A function's code may or may not be written in ECMAScript.</p>
+        <p>函数除了拥有属性，还包括可执行代码、状态，用以确定被调用时的行为。函数代码不限于 ECMAScript 中。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-built-in-function">
-      <h1>built-in function</h1>
-      <p>built-in object that is a function</p>
+      <h1>内置函数(built-in function)</h1>
+      <p>是函数的内置对象。</p>
       <emu-note>
-        <p>Examples of built-in functions include `parseInt` and `Math.exp`. An implementation may provide implementation-dependent built-in functions that are not described in this specification.</p>
+        <p>例如包含 `parseInt` 和 `Math.exp` 的函数。标准的实现可能包含本标准中未包含的额外的内置函数。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-property">
-      <h1>property</h1>
-      <p>part of an object that associates a key (either a String value or a Symbol value) and a value</p>
+      <h1>属性(property)</h1>
+      <p>对象的一部分，是键值对的键（字符串类型或符号类型）。</p>
       <emu-note>
-        <p>Depending upon the form of the property the value may be represented either directly as a data value (a primitive value, an object, or a function object) or indirectly by a pair of accessor functions.</p>
+        <p>根据属性的形式，值可以直接表示为数据值（原始值，对象或函数对象），也可以通过一堆访问器间接表示。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-method">
-      <h1>method</h1>
-      <p>function that is the value of a property</p>
+      <h1>方法(method)</h1>
+      <p>是函数的属性值。</p>
       <emu-note>
-        <p>When a function is called as a method of an object, the object is passed to the function as its *this* value.</p>
+        <p>当一个函数被叫做某对象的方法，改对象将作为 *this* 关键字传给改函数。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-built-in-method">
-      <h1>built-in method</h1>
-      <p>method that is a built-in function</p>
+      <h1>内置方法(built-in method)</h1>
+      <p>是内置函数的方法。</p>
       <emu-note>
-        <p>Standard built-in methods are defined in this specification, and an ECMAScript implementation may specify and provide other additional built-in methods.</p>
+        <p>标准内置方法由本规范定义，一个 ECMAScript 实现可指定，提供给其它额外的内置方法。</p>
       </emu-note>
     </emu-clause>
 
     <emu-clause id="sec-attribute">
-      <h1>attribute</h1>
-      <p>internal value that defines some characteristic of a property</p>
+      <h1>特性(attribute)</h1>
+      <p>属性内部定义的一些特定值。</p>
     </emu-clause>
 
     <emu-clause id="sec-own-property">
-      <h1>own property</h1>
-      <p>property that is directly contained by its object</p>
+      <h1>自身属性(own property)</h1>
+      <p>对象直接拥有的属性</p>
     </emu-clause>
 
     <emu-clause id="sec-inherited-property">
-      <h1>inherited property</h1>
-      <p>property of an object that is not an own property but is a property (either own or inherited) of the object's prototype</p>
+      <h1>继承属性(inherited property)</h1>
+      <p>不是对象的自身属性，是对象原型的属性（原型自身或继承属性）。</p>
     </emu-clause>
   </emu-clause>
 
   <emu-clause id="sec-organization-of-this-specification">
-    <h1>Organization of This Specification</h1>
-    <p>The remainder of this specification is organized as follows:</p>
-    <p>Clause 5 defines the notational conventions used throughout the specification.</p>
-    <p>Clauses 6-9 define the execution environment within which ECMAScript programs operate.</p>
-    <p>Clauses 10-16 define the actual ECMAScript programming language including its syntactic encoding and the execution semantics of all language features.</p>
-    <p>Clauses 17-26 define the ECMAScript standard library. They include the definitions of all of the standard objects that are available for use by ECMAScript programs as they execute.</p>
-    <p>Clause 27 describes the memory consistency model of accesses on SharedArrayBuffer-backed memory and methods of the Atomics object.</p>
+    <h1>本规范的结构</h1>
+    <p>本规范剩余篇幅将会以下结构展示：</p>
+    <p>第 5 部分定义了整个说明书中使用的符号约定。</p>
+    <p>第 6 到 9 部分介绍 ECMAScript 在任何环境下执行。</p>
+    <p>第 10-16 部分介绍 ECMAScript 语言所有语义及语法特性。</p>
+    <p>第 17-26 部分记录 ECMAScript 标准库。它包括当 ECMAScript 标准执行时所有的标准对象。</p>
   </emu-clause>
 </emu-clause>
 
 <emu-clause id="sec-notational-conventions">
-  <h1>Notational Conventions</h1>
+  <h1>符号约定</h1>
 
   <emu-clause id="sec-syntactic-and-lexical-grammars">
-    <h1>Syntactic and Lexical Grammars</h1>
+    <h1>语法和词法</h1>
 
     <emu-clause id="sec-context-free-grammars">
-      <h1>Context-Free Grammars</h1>
-      <p>A <em>context-free grammar</em> consists of a number of <em>productions</em>. Each production has an abstract symbol called a <em>nonterminal</em> as its <em>left-hand side</em>, and a sequence of zero or more nonterminal and <em>terminal</em> symbols as its <em>right-hand side</em>. For each grammar, the terminal symbols are drawn from a specified alphabet.</p>
-      <p>A <dfn>chain production</dfn> is a production that has exactly one nonterminal symbol on its right-hand side along with zero or more terminal symbols.</p>
-      <p>Starting from a sentence consisting of a single distinguished nonterminal, called the <dfn>goal symbol</dfn>, a given context-free grammar specifies a <em>language</em>, namely, the (perhaps infinite) set of possible sequences of terminal symbols that can result from repeatedly replacing any nonterminal in the sequence with a right-hand side of a production for which the nonterminal is the left-hand side.</p>
+      <h1>上下文无关文法</h1>
+      <p>一个<em>上下文无关文法</em>由一定数量的生成式(productions)组成。每个生成式的左边是一个被称为非终结符(nonterminal)的抽象符号，右边是零个或多个非终结符合终结符的有序排列。任何文法，它的终结符都来自指定的字母集。</p>
+      <p>当一个叫做目标符的特殊非终端组成的句子起始，那么给出的上下文无关文法就表示语言，也就是说，将生成式右边序列的非终结符当作左边，进行反复替换的结果就成为可能的终结符序列集合 (可能无限)。</p>
     </emu-clause>
 
     <emu-clause id="sec-lexical-and-regexp-grammars">
-      <h1>The Lexical and RegExp Grammars</h1>
-      <p>A <em>lexical grammar</em> for ECMAScript is given in clause <emu-xref href="#sec-ecmascript-language-lexical-grammar"></emu-xref>. This grammar has as its terminal symbols Unicode code points that conform to the rules for |SourceCharacter| defined in <emu-xref href="#sec-source-text"></emu-xref>. It defines a set of productions, starting from the goal symbol |InputElementDiv|, |InputElementTemplateTail|, or |InputElementRegExp|, or |InputElementRegExpOrTemplateTail|, that describe how sequences of such code points are translated into a sequence of input elements.</p>
-      <p>Input elements other than white space and comments form the terminal symbols for the syntactic grammar for ECMAScript and are called ECMAScript <em>tokens</em>. These tokens are the reserved words, identifiers, literals, and punctuators of the ECMAScript language. Moreover, line terminators, although not considered to be tokens, also become part of the stream of input elements and guide the process of automatic semicolon insertion (<emu-xref href="#sec-automatic-semicolon-insertion"></emu-xref>). Simple white space and single-line comments are discarded and do not appear in the stream of input elements for the syntactic grammar. A |MultiLineComment| (that is, a comment of the form `/*`&hellip;`*/` regardless of whether it spans more than one line) is likewise simply discarded if it contains no line terminator; but if a |MultiLineComment| contains one or more line terminators, then it is replaced by a single line terminator, which becomes part of the stream of input elements for the syntactic grammar.</p>
-      <p>A <em>RegExp grammar</em> for ECMAScript is given in <emu-xref href="#sec-patterns"></emu-xref>. This grammar also has as its terminal symbols the code points as defined by |SourceCharacter|. It defines a set of productions, starting from the goal symbol |Pattern|, that describe how sequences of code points are translated into regular expression patterns.</p>
-      <p>Productions of the lexical and RegExp grammars are distinguished by having two colons &ldquo;<b>::</b>&rdquo; as separating punctuation. The lexical and RegExp grammars share some productions.</p>
+      <h1>词法和正则的文法</h1>
+      <p>ECMAScript 的<em>词法文法(lexical grammar)</em>在下面部分给出<emu-xref href="#sec-ecmascript-language-lexical-grammar"></emu-xref>。该语法的终端符号为 Unicode 代码，复合 |SourceCharacter| 的规则<emu-xref href="#sec-source-text"></emu-xref>。它定义一套生成式，从目标符 |InputElementDiv| 或 |InputElementTemplateTail| 或 |InputElementRegExp| 或 |InputElementRegExpOrTemplateTail| 开始，描述了如何将这些代码转换为输入元素序列。</p>
+      <p>除了空白和注释之外的输入元素构成了 ECMAScript 语法文法的终结符，被称之为 <em>tokens</em>。这些 tokens 被称之为 ECMAScript 的保留字，标识符，字面量，标点符号。此外，行结束符虽然不能被称为 tokens，但会成为输入元素的一部分，用于引导处理自动插入分号(<emu-xref href="#sec-automatic-semicolon-insertion"></emu-xref>)。空白和单行注释会被简单的丢弃，不会出现在语法文法的输入元素流中。如果一个多行注释（即`/*`&hellip;`*/`表示的注释，不管是否多行）不包含结束符也会简单的丢弃，但是如果一个多行注释包含一个或多个结束符，那么注释会被替换为一个结束符，成为语法文法输入元素流的一部分。</p>
+      <p>本标准在<emu-xref href="#sec-patterns"></emu-xref>中给出的 ECMAScript <em>正则文法</em>。 此文法的终结符也由 |SourceCharacter| 定义。它定义了一套生成式，从目标符 |Pattern|开始，描述了如何将这样的字符串序列转换为正则表达式模式。</p>
+      <p>两个冒号 &ldquo;<b>::</b>&rdquo; 作为分隔词法和正则的文法生成式。词法和正则的文法共享某些生成式。</p>
     </emu-clause>
 
     <emu-clause id="sec-numeric-string-grammar">
-      <h1>The Numeric String Grammar</h1>
-      <p>Another grammar is used for translating Strings into numeric values. This grammar is similar to the part of the lexical grammar having to do with numeric literals and has as its terminal symbols |SourceCharacter|. This grammar appears in <emu-xref href="#sec-tonumber-applied-to-the-string-type"></emu-xref>.</p>
-      <p>Productions of the numeric string grammar are distinguished by having three colons &ldquo;<b>:::</b>&rdquo; as punctuation.</p>
+      <h1>数字字符串文法</h1>
+      <p>另一种文法式用于转换字符串为数字值。此文法与词法文法的一部分类似（数字字面量相关），并且由终结符 |SourceCharacter|。此文法在 <emu-xref href="#sec-tonumber-applied-to-the-string-type"></emu-xref></p>
+      <p>三个冒号 &ldquo;<b>:::</b>&rdquo; 作为分隔数字字符串文法的生成式。</p>
     </emu-clause>
 
     <emu-clause id="sec-syntactic-grammar">
-      <h1>The Syntactic Grammar</h1>
-      <p>The <em>syntactic grammar</em> for ECMAScript is given in clauses 11, 12, 13, 14, and 15. This grammar has ECMAScript tokens defined by the lexical grammar as its terminal symbols (<emu-xref href="#sec-lexical-and-regexp-grammars"></emu-xref>). It defines a set of productions, starting from two alternative goal symbols |Script| and |Module|, that describe how sequences of tokens form syntactically correct independent components of ECMAScript programs.</p>
-      <p>When a stream of code points is to be parsed as an ECMAScript |Script| or |Module|, it is first converted to a stream of input elements by repeated application of the lexical grammar; this stream of input elements is then parsed by a single application of the syntactic grammar. The input stream is syntactically in error if the tokens in the stream of input elements cannot be parsed as a single instance of the goal nonterminal (|Script| or |Module|), with no tokens left over.</p>
-      <p>When a parse is successful, it constructs a <em>parse tree</em>, a rooted tree structure in which each node is a <dfn>Parse Node</dfn>. Each Parse Node is an <em>instance</em> of a symbol in the grammar; it represents a span of the source text that can be derived from that symbol. The root node of the parse tree, representing the whole of the source text, is an instance of the parse's goal symbol. When a Parse Node is an instance of a nonterminal, it is also an instance of some production that has that nonterminal as its left-hand side. Moreover, it has zero or more <em>children</em>, one for each symbol on the production's right-hand side: each child is a Parse Node that is an instance of the corresponding symbol.</p>
-      <p>New Parse Nodes are instantiated for each invocation of the parser and never reused between parses even of identical source text. Parse Nodes are considered <dfn>the same Parse Node</dfn> if and only if they represent the same span of source text, are instances of the same grammar symbol, and resulted from the same parser invocation.</p>
+      <h1>语法文法</h1>
+      <p>ECMAScript 在第 11, 12, 13, 14 和 15 部分给出的<em>语法文法</em>。它定义的 ECMAScript tokens 式此文法的终结符。(<emu-xref href="#sec-lexical-and-regexp-grammars"></emu-xref>)它定义了一组起始于目标符的生产式，从两个可选的目标符 |Script| 和 |Module| 开始，描述了语法正确的 ECMAScript 程序应该怎样排列 tokens。</p>
+      <p>当一个字符流被解析为 ECMAScript |Script| 或 |Module|，它首先通过词法文法应用程序重复转为一个输入元素流，然后在用一个语法文法应用程序解析这个元素流。如果输入元素流中的 tokens 不能被解析为目标终结符(|Script| 或 |Module|)的单一实例，且没有任何标记，则输入流在语法上会出错。</p>
+      <p>当解析成功，它会构建一个解析树(parse tree)，拥有根树节点，其中每个节点都是<dfn>解析节点(Parse Node)</dfn>。每个解析节点都是语法中符号的实例。它表示可以从符号派生的原文本的跨度。解析树的根节点(表示整个源文本)是解析的目标符号的实例。当解析节点是非终结符的实例时，它也是某个生成的实例，左边具有非终结符。此外，它有零个或多个 <em>children</em>，一个右边的每个符号，它的每个子节点都是一个解析节点，是相应符号的一个实例。</p>
+      <p>新的解析节点在每次调用解析器时都会被实例化，并且永远不会在相同原文本的解析之间重用。解析节点被认为是 <dfn>相同的解析节点</dfn>当且仅当他们表示相同的源文本范围时，是相同语法符号的实例，并且是由相同的解析器调用产生的。</p>
       <emu-note>
-        <p>Parsing the same String multiple times will lead to different Parse Nodes, e.g., as occurs in:</p>
-        <pre><code language="javascript">eval(str); eval(str);</code></pre>
+        <p>多次解析相同的字符串将导致不同的解析节点，例如在</p>
+        <pre><code language="javascript">eval(str); eval(str);</code>中那样</pre>
       </emu-note>
-      <emu-note>Parse Nodes are specification artefacts, and implementations are not required to use an analogous data structure.</emu-note>
-      <p>Productions of the syntactic grammar are distinguished by having just one colon &ldquo;<b>:</b>&rdquo; as punctuation.</p>
-      <p>The syntactic grammar as presented in clauses 12, 13, 14 and 15 is not a complete account of which token sequences are accepted as a correct ECMAScript |Script| or |Module|. Certain additional token sequences are also accepted, namely, those that would be described by the grammar if only semicolons were added to the sequence in certain places (such as before line terminator characters). Furthermore, certain token sequences that are described by the grammar are not considered acceptable if a line terminator character appears in certain &ldquo;awkward&rdquo; places.</p>
-      <p>In certain cases, in order to avoid ambiguities, the syntactic grammar uses generalized productions that permit token sequences that do not form a valid ECMAScript |Script| or |Module|. For example, this technique is used for object literals and object destructuring patterns. In such cases a more restrictive <em>supplemental grammar</em> is provided that further restricts the acceptable token sequences. Typically, an early error rule will then define an error condition if "_P_ is not <dfn>covering</dfn> an _N_", where _P_ is a Parse Node (an instance of the generalized production) and _N_ is a nonterminal from the supplemental grammar. Here, the sequence of tokens originally matched by _P_ is parsed again using _N_ as the goal symbol. (If _N_ takes grammatical parameters, then they are set to the same values used when _P_ was originally parsed.) An error occurs if the sequence of tokens cannot be parsed as a single instance of _N_, with no tokens left over. Subsequently, algorithms access the result of the parse using a phrase of the form "the _N_ that is <dfn>covered</dfn> by _P_". This will always be a Parse Node (an instance of _N_, unique for a given _P_), since any parsing failure would have been detected by an early error rule.</p>
+      <emu-note>解析节点是规范现象，并且实现不需要使用类似的数据结构。</emu-note>
+      <p>只用一个冒号 &ldquo;<b>:</b>&rdquo; 作为分隔符分割语法词法的生产式。</p>
+      <p>第 12, 13, 14 和 15 中提出的句法文法并不完整的说明哪些标记序列被接受为正确的 ECMAScript |Script| or |Module|。还接受某些额外的 token，如在哪些位置（例如在终止符之前）仅将分号添加到序列中，则将语法描述的那些序列。此外，如果终止符出现在某些 &ldquo;尴尬&rdquo; 的地方，则语法描述的某些 token 序列不被认为是可接受的。</p>
+      <p>在某些情况下，为了避免含糊不清，句法文法使用广义生成，允许不形成有效 ECMAScript |Script| or |Module| 的令牌序列。例如，此技术用于对象字面量和对象解构模式。在这种情况下，提供了更严格的补充语法，进一步限制了可接受的 token 序列。通常，如果"_P_ 不是 <dfn>覆盖</dfn> _N_"，则早期规则将定义错误条件，其中 _P_ 实解析节点(广义生成的实例)并且 _N_ 是补充语法的非终结符。这里，使用 _N_ 作为目标符号再次解析最初由 _P_ 匹配的 token 序列。（如果 _N_ 接受语法参数，则将它们设置为最初的解析 _P_ 时使用的相同值。）如果 token 序列无法解析为单个实例，则不会生成任何 token，则产生错误。随后，算法使用形式为 "_N_ <dfn>覆盖</dfn>_P_" 的短语来访问解析的结果。这将始终是一个解析节点(_N_ 的一个实例，对于给定的 _P_ 是唯一的), 因为任何解析失败都会被早期错误检测到。</p>
     </emu-clause>
 
     <emu-clause id="sec-grammar-notation" namespace=grammar-notation>
-      <h1>Grammar Notation</h1>
-      <p>Terminal symbols of the lexical, RegExp, and numeric string grammars are shown in `fixed width` font, both in the productions of the grammars and throughout this specification whenever the text directly refers to such a terminal symbol. These are to appear in a script exactly as written. All terminal symbol code points specified in this way are to be understood as the appropriate Unicode code points from the Basic Latin range, as opposed to any similar-looking code points from other Unicode ranges.</p>
-      <p>Nonterminal symbols are shown in <i>italic</i> type. The definition of a nonterminal (also called a &ldquo;production&rdquo;) is introduced by the name of the nonterminal being defined followed by one or more colons. (The number of colons indicates to which grammar the production belongs.) One or more alternative right-hand sides for the nonterminal then follow on succeeding lines. For example, the syntactic definition:</p>
+      <h1>语法符号</h1>
+      <p>词法，正则和数字字符串语法的终端符号等宽字体显示，无论是文本的产生还是整个规范，只要文本直接引用这样的终端符号。这些将完全按照书面形式出现在脚本中。已这种方式指定所有的终端符号代码应被理解为来自 Basic Latin 范围的适当 Unicode 代码点，而不是来自其它 Unicode 范围的任何类似外观点的代码。</p>
+      <p>非终结符号以斜体类型显示。非终结符的定义（也称 &ldquo;production&rdquo;) 由非终结符的名称引入，后跟一个或多个冒号。(冒号数量表示生产属于哪种语法)，非终结符的一个或多个替代右随后是后续行。例如句法定义：</p>
       <emu-grammar type="example">
         WhileStatement :
           `while` `(` Expression `)` Statement
       </emu-grammar>
-      <p>states that the nonterminal |WhileStatement| represents the token `while`, followed by a left parenthesis token, followed by an |Expression|, followed by a right parenthesis token, followed by a |Statement|. The occurrences of |Expression| and |Statement| are themselves nonterminals. As another example, the syntactic definition:</p>
+      <p>声明非终结 |WhileStatement| 表示标记 `while`，后跟左括号标记，后跟 |Expression|，后跟右括号标记，后跟 |Statement|。|Expression| 和 |Statement| 是本身就是非终结者。另一个例子是：</p>
       <emu-grammar type="example">
         ArgumentList :
           AssignmentExpression
           ArgumentList `,` AssignmentExpression
       </emu-grammar>
-      <p>states that an |ArgumentList| may represent either a single |AssignmentExpression| or an |ArgumentList|, followed by a comma, followed by an |AssignmentExpression|. This definition of |ArgumentList| is recursive, that is, it is defined in terms of itself. The result is that an |ArgumentList| may contain any positive number of arguments, separated by commas, where each argument expression is an |AssignmentExpression|. Such recursive definitions of nonterminals are common.</p>
-      <p>The subscripted suffix &ldquo;<sub>opt</sub>&rdquo;, which may appear after a terminal or nonterminal, indicates an optional symbol. The alternative containing the optional symbol actually specifies two right-hand sides, one that omits the optional element and one that includes it. This means that:</p>
+      <p>声明 |ArgumentList| 可以表示单一 |AssignmentExpression| 或 |ArgumentList|，后跟逗号，后跟 |AssignmentExpression|。|ArgumentList| 的定义是递归的，也就是说，它是根据自身的定义的。结果是 |ArgumentList| 可以包含任何正数参数，以逗号分隔，其中每个参数表达式为 |AssignmentExpression|。这种非终结符的递归定义很常见。
+      </p>
+      <p>终结符或非终结符可能会出现后缀下标 &ldquo;<sub>opt</sub>&rdquo;，表示它是可选符号。实际上包含可选符号的替代子包含两个右边部分，一个是省略可选元素，另一个是包含可选元素的。这意味着：</p>
       <emu-grammar type="example">
         VariableDeclaration :
           BindingIdentifier Initializer?
       </emu-grammar>
-      <p>is a convenient abbreviation for:</p>
+      <p>是以下的缩写:</p>
       <emu-grammar type="example">
         VariableDeclaration :
           BindingIdentifier
           BindingIdentifier Initializer
       </emu-grammar>
-      <p>and that:</p>
+      <p>且:</p>
       <emu-grammar type="example">
         IterationStatement :
           `for` `(` LexicalDeclaration Expression? `;` Expression? `)` Statement
       </emu-grammar>
-      <p>is a convenient abbreviation for:</p>
+      <p>是以下的一种缩写：</p>
       <emu-grammar type="example">
         IterationStatement :
           `for` `(` LexicalDeclaration `;` Expression? `)` Statement
           `for` `(` LexicalDeclaration Expression `;` Expression? `)` Statement
       </emu-grammar>
-      <p>which in turn is an abbreviation for:</p>
+      <p>是以下的一种缩写：</p>
       <emu-grammar type="example">
         IterationStatement :
           `for` `(` LexicalDeclaration `;` `)` Statement
@@ -507,14 +506,14 @@
           `for` `(` LexicalDeclaration Expression `;` `)` Statement
           `for` `(` LexicalDeclaration Expression `;` Expression `)` Statement
       </emu-grammar>
-      <p>so, in this example, the nonterminal |IterationStatement| actually has four alternative right-hand sides.</p>
-      <p>A production may be parameterized by a subscripted annotation of the form &ldquo;<sub>[parameters]</sub>&rdquo;, which may appear as a suffix to the nonterminal symbol defined by the production. &ldquo;<sub>parameters</sub>&rdquo; may be either a single name or a comma separated list of names. A parameterized production is shorthand for a set of productions defining all combinations of the parameter names, preceded by an underscore, appended to the parameterized nonterminal symbol. This means that:</p>
+      <p>因此非终结 |IterationStatement| 实际上有 4 个右侧替代。</p>
+      <p>可以通过 &ldquo;<sub>[parameters]</sub>&rdquo;下标注释来参数化，可以作为生成式所定义的非终端符号的后缀。&ldquo;<sub>parameters</sub>&rdquo; 可以是单个名称，也可以是逗号分隔的名称列表。参数化生成式是一组生产的简写，这些生成式定义了参数名称的所有组合，前面带有下划线的，附加到参数化的非终结符号。这意味着：</p>
       <emu-grammar type="example">
         StatementList[Return] :
           ReturnStatement
           ExpressionStatement
       </emu-grammar>
-      <p>is a convenient abbreviation for:</p>
+      <p>是以下的一种缩写：</p>
       <emu-grammar type="example">
         StatementList :
           ReturnStatement
@@ -524,13 +523,13 @@
           ReturnStatement
           ExpressionStatement
       </emu-grammar>
-      <p>and that:</p>
+      <p>以及:</p>
       <emu-grammar type="example">
         StatementList[Return, In] :
           ReturnStatement
           ExpressionStatement
       </emu-grammar>
-      <p>is an abbreviation for:</p>
+      <p>是以下的一种缩写:</p>
       <emu-grammar type="example">
         StatementList :
           ReturnStatement
@@ -548,48 +547,48 @@
           ReturnStatement
           ExpressionStatement
       </emu-grammar>
-      <p>Multiple parameters produce a combinatory number of productions, not all of which are necessarily referenced in a complete grammar.</p>
-      <p>References to nonterminals on the right-hand side of a production can also be parameterized. For example:</p>
+      <p>多个参数生产组合数量的产品，并非所有产品都必须在完整的语法中引用。</p>
+      <p>也可以参数化生产右侧的非终端参考。例如：</p>
       <emu-grammar type="example">
         StatementList :
           ReturnStatement
           ExpressionStatement[+In]
       </emu-grammar>
-      <p>is equivalent to saying:</p>
+      <p>相当于说:</p>
       <emu-grammar type="example">
         StatementList :
           ReturnStatement
           ExpressionStatement_In
       </emu-grammar>
-      <p>and:</p>
+      <p>以及:</p>
       <emu-grammar type="example">
         StatementList :
           ReturnStatement
           ExpressionStatement[~In]
       </emu-grammar>
-      <p>is equivalent to:</p>
+      <p>是以下的一种缩写：</p>
       <emu-grammar type="example">
         StatementList :
           ReturnStatement
           ExpressionStatement
       </emu-grammar>
-      <p>A nonterminal reference may have both a parameter list and an &ldquo;<sub>opt</sub>&rdquo; suffix. For example:</p>
+      <p>非终结参考可以同时具有参数列表和 &ldquo;<sub>opt</sub>&rdquo; 后缀。例如：</p>
       <emu-grammar type="example">
         VariableDeclaration :
           BindingIdentifier Initializer[+In]?
       </emu-grammar>
-      <p>is an abbreviation for:</p>
+      <p>是以下的一种缩写：</p>
       <emu-grammar type="example">
         VariableDeclaration :
           BindingIdentifier
           BindingIdentifier Initializer_In
       </emu-grammar>
-      <p>Prefixing a parameter name with &ldquo;<sub>?</sub>&rdquo; on a right-hand side nonterminal reference makes that parameter value dependent upon the occurrence of the parameter name on the reference to the current production's left-hand side symbol. For example:</p>
+      <p>使用 &ldquo;<sub>?</sub>&rdquo; 前缀参数名称在右侧非终端参考使用该参数数值取决于当前生产的左侧符号的引用上参数名称的出现。例如：</p>
       <emu-grammar type="example">
         VariableDeclaration[In] :
           BindingIdentifier Initializer[?In]
       </emu-grammar>
-      <p>is an abbreviation for:</p>
+      <p>是以下的一种缩写：</p>
       <emu-grammar type="example">
         VariableDeclaration :
           BindingIdentifier Initializer
@@ -597,13 +596,13 @@
         VariableDeclaration_In :
           BindingIdentifier Initializer_In
       </emu-grammar>
-      <p>If a right-hand side alternative is prefixed with &ldquo;[+parameter]&rdquo; that alternative is only available if the named parameter was used in referencing the production's nonterminal symbol. If a right-hand side alternative is prefixed with &ldquo;[\~parameter]&rdquo; that alternative is only available if the named parameter was <em>not</em> used in referencing the production's nonterminal symbol. This means that:</p>
+      <p>如果右侧替代方案的前缀是 &ldquo;[+parameter]&rdquo; 只有在引用生产的非终结符号时使用了命名参数时，该备选方案才可能使用。如果右侧替代方案的前缀时 &ldquo;[\~parameter]&rdquo; 只有在引用生产的非终结符号时使用的命名参数 <em>not</em> 时，该备选方案才可以使用。这意味着：</p>
       <emu-grammar type="example">
         StatementList[Return] :
           [+Return] ReturnStatement
           ExpressionStatement
       </emu-grammar>
-      <p>is an abbreviation for:</p>
+      <p>是以下的一种缩写：</p>
       <emu-grammar type="example">
         StatementList :
           ExpressionStatement
@@ -612,13 +611,13 @@
           ReturnStatement
           ExpressionStatement
       </emu-grammar>
-      <p>and that:</p>
+      <p>以及：</p>
       <emu-grammar type="example">
         StatementList[Return] :
           [~Return] ReturnStatement
           ExpressionStatement
       </emu-grammar>
-      <p>is an abbreviation for:</p>
+      <p>是以下的一种缩写：</p>
       <emu-grammar type="example">
         StatementList :
           ReturnStatement
@@ -627,12 +626,12 @@
         StatementList_Return :
           ExpressionStatement
       </emu-grammar>
-      <p>When the words &ldquo;<b>one of</b>&rdquo; follow the colon(s) in a grammar definition, they signify that each of the terminal symbols on the following line or lines is an alternative definition. For example, the lexical grammar for ECMAScript contains the production:</p>
+      <p>当单词 &ldquo;<b>one of</b>&rdquo; 按照语法定义中的冒号，它们表示下一行或多行中的每个终端符号都是替代定义。例如， ECMAScript 的词法语法包含以下内容：</p>
       <emu-grammar type="example">
         NonZeroDigit :: one of
           `1` `2` `3` `4` `5` `6` `7` `8` `9`
       </emu-grammar>
-      <p>which is merely a convenient abbreviation for:</p>
+      <p>是以下的一种缩写：</p>
       <emu-grammar type="example">
         NonZeroDigit ::
           `1`
@@ -645,9 +644,9 @@
           `8`
           `9`
       </emu-grammar>
-      <p>If the phrase &ldquo;[empty]&rdquo; appears as the right-hand side of a production, it indicates that the production's right-hand side contains no terminals or nonterminals.</p>
-      <p>If the phrase &ldquo;[lookahead &notin; _set_]&rdquo; appears in the right-hand side of a production, it indicates that the production may not be used if the immediately following input token sequence is a member of the given _set_. The _set_ can be written as a comma separated list of one or two element terminal sequences enclosed in curly brackets. For convenience, the set can also be written as a nonterminal, in which case it represents the set of all terminals to which that nonterminal could expand. If the _set_ consists of a single terminal the phrase &ldquo;[lookahead &ne; _terminal_]&rdquo; may be used.</p>
-      <p>For example, given the definitions:</p>
+      <p>如果短语 &ldquo;[empty]&rdquo; 作为生成式的右侧，它表示生成式的右侧不包含终端或非终端。</p>
+      <p>如果短语 &ldquo;[lookahead &notin; _set_]&rdquo; 出现在生产式右侧，它表示如果紧随其后的输入标记序列是给定 _set_ 的成员，则可能不会使用生成式。_set_ 可以写成用括号阔起来的一个或两个元素终端序列的逗号分隔列表。为了方便起见，该集合可以写为非终结符，在这种情况下，它表示非终端可以扩展所有终端集合。如果 _set_ 由单个短语 &ldquo;[lookahead &ne; _terminal_]&rdquo; 组成，可能已经用过了。</p>
+      <p>例如，定义如下：</p>
       <emu-grammar type="example">
         DecimalDigit :: one of
           `0` `1` `2` `3` `4` `5` `6` `7` `8` `9`
@@ -656,29 +655,29 @@
           DecimalDigit
           DecimalDigits DecimalDigit
       </emu-grammar>
-      <p>the definition:</p>
+      <p>定义:</p>
       <emu-grammar type="example">
         LookaheadExample ::
           `n` [lookahead &lt;! {`1`, `3`, `5`, `7`, `9`}] DecimalDigits
           DecimalDigit [lookahead &lt;! DecimalDigit]
       </emu-grammar>
-      <p>matches either the letter `n` followed by one or more decimal digits the first of which is even, or a decimal digit not followed by another decimal digit.</p>
-      <p>Similarly, if the phrase &ldquo;[lookahead &isin; _set_]&rdquo; appears in the right-hand side of a production, it indicates that the production may only be used if the immediately following input token sequence is a member of the given _set_. If the _set_ consists of a single terminal the phrase &ldquo;[lookahead = _terminal_]&rdquo; may be used.</p>
-      <p>If the phrase &ldquo;[no |LineTerminator| here]&rdquo; appears in the right-hand side of a production of the syntactic grammar, it indicates that the production is <em>a restricted production</em>: it may not be used if a |LineTerminator| occurs in the input stream at the indicated position. For example, the production:</p>
+      <p>匹配字母 `n` 后跟一个或多个十进制数字，第一个数字是偶数，或十进制数字后跟另一个十进制数字。</p>
+      <p>同样，如果短语 &ldquo;[lookahead &isin; _set_]&rdquo; 的出现在生产右侧，它表示只有紧接着输入标记序列时给定  _set_ 的成员才可以使用。如果 _set_ 由单个终端组成，则短语 &ldquo;[lookahead = _terminal_]&rdquo; 可能已经用过了。</p>
+      <p>如果短语 &ldquo;[no |LineTerminator| here]&rdquo; 出现在生成式右侧，它表明生产式 <em>限制生产</em>：如果 |LineTerminator| 则可能不会使用它。在指定位置的输入流中发生。例如：</p>
       <emu-grammar type="example">
         ThrowStatement :
           `throw` [no LineTerminator here] Expression `;`
       </emu-grammar>
-      <p>indicates that the production may not be used if a |LineTerminator| occurs in the script between the `throw` token and the |Expression|.</p>
-      <p>Unless the presence of a |LineTerminator| is forbidden by a restricted production, any number of occurrences of |LineTerminator| may appear between any two consecutive tokens in the stream of input elements without affecting the syntactic acceptability of the script.</p>
-      <p>When an alternative in a production of the lexical grammar or the numeric string grammar appears to be a multi-code point token, it represents the sequence of code points that would make up such a token.</p>
-      <p>The right-hand side of a production may specify that certain expansions are not permitted by using the phrase &ldquo;<b>but not</b>&rdquo; and then indicating the expansions to be excluded. For example, the production:</p>
+      <p>表示如果 |LineTerminator| 发生在 `throw` 标记和 |Expression| 之间，生产可能不会使用。</p>
+      <p>除非存在 |LineTerminator| 限制生产，任何次数的  |LineTerminator| 都禁止使用。可能出现在输入元素流中的任意两个连续标记之间，而不会影响脚本的语法可接受性。</p>
+      <p>当词法语法或数字字符串语法的生成中的替代词看起来是多代码令牌，它表示构成这样的令牌代码序列。</p>
+      <p>制作右侧可以指定使用短语 &ldquo;<b>but not</b>&rdquo; 不允许某些扩展，然后要排除的扩展。例如，</p>
       <emu-grammar type="example">
         Identifier ::
           IdentifierName but not ReservedWord
       </emu-grammar>
-      <p>means that the nonterminal |Identifier| may be replaced by any sequence of code points that could replace |IdentifierName| provided that the same sequence of code points could not replace |ReservedWord|.</p>
-      <p>Finally, a few nonterminal symbols are described by a descriptive phrase in sans-serif type in cases where it would be impractical to list all the alternatives:</p>
+      <p>意味着非终结 |Identifier| 可以替换 |IdentifierName| 的任意代码序列。只有相同的代码点序列无法替换|ReservedWord|。</p>
+      <p>最后，一些非终结符号由 sans-serif 类型的描述性短语描述，如果列出所有替代方案是不切实际的。</p>
       <emu-grammar type="example">
         SourceCharacter ::
           &gt; any Unicode code point
@@ -687,10 +686,10 @@
   </emu-clause>
 
   <emu-clause id="sec-algorithm-conventions">
-    <h1>Algorithm Conventions</h1>
-    <p>The specification often uses a numbered list to specify steps in an algorithm. These algorithms are used to precisely specify the required semantics of ECMAScript language constructs. The algorithms are not intended to imply the use of any specific implementation technique. In practice, there may be more efficient algorithms available to implement a given feature.</p>
-    <p>Algorithms may be explicitly parameterized, in which case the names and usage of the parameters must be provided as part of the algorithm's definition.</p>
-    <p>Algorithm steps may be subdivided into sequential substeps. Substeps are indented and may themselves be further divided into indented substeps. Outline numbering conventions are used to identify substeps with the first level of substeps labelled with lower case alphabetic characters and the second level of substeps labelled with lower case roman numerals. If more than three levels are required these rules repeat with the fourth level using numeric labels. For example:</p>
+    <h1>算法约定</h1>
+    <p>规范通常使用编号列表来指定算法中的步骤。这些算法用于精确指定 ECMAScript 语言解构所需的语义。算法并不意味着暗示使用任何特定的实现技术。实际上，可能有更有效的算法可用于实现给定的特征。</p>
+    <p>算法可以显示参数化，在这种情况下，参数名称和用法必须作为算法定义的一部分提供。</p>
+    <p>算法步骤可以细分为顺序子步骤。子步骤是缩进的(indented)，且可以进一步划分为缩进的子步骤。大纲编号约定用于识别具有小写字母字符标记的第一个级子步骤和用于小写罗马数字标记的第二级子步骤的子步骤。如需三个以上级别，则使用数字标签对第四级重复这些规则。例如：</p>
     <emu-alg>
       1. Top-level step
         1. Substep.
@@ -700,74 +699,74 @@
               1. Subsubsubsubstep
                 1. Subsubsubsubsubstep
     </emu-alg>
-    <p>A step or substep may be written as an &ldquo;if&rdquo; predicate that conditions its substeps. In this case, the substeps are only applied if the predicate is true. If a step or substep begins with the word &ldquo;else&rdquo;, it is a predicate that is the negation of the preceding &ldquo;if&rdquo; predicate step at the same level.</p>
-    <p>A step may specify the iterative application of its substeps.</p>
-    <p>A step that begins with &ldquo;<dfn id="assert">Assert</dfn>:&rdquo; asserts an invariant condition of its algorithm. Such assertions are used to make explicit algorithmic invariants that would otherwise be implicit. Such assertions add no additional semantic requirements and hence need not be checked by an implementation. They are used simply to clarify algorithms.</p>
-    <p>Algorithm steps may declare named aliases for any value using the form &ldquo;Let _x_ be _someValue_&rdquo;. These aliases are reference-like in that both _x_ and _someValue_ refer to the same underlying data and modifications to either are visible to both. Algorithm steps that want to avoid this reference-like behaviour should explicitly make a copy of the right-hand side: &ldquo;Let _x_ be a copy of _someValue_&rdquo; creates a shallow copy of _someValue_.</p>
-    <p>Once declared, an alias may be referenced in any subsequent steps and must not be referenced from steps prior to the alias's declaration. Aliases may be modified using the form &ldquo;Set _x_ to _someOtherValue_&rdquo;.</p>
+    <p>步骤或子步骤可以写为 &ldquo;if&rdquo; 。谓语调整其子步骤。在这种情况下，仅在谓语为真时才应用子步骤。如果一个步骤或子步骤已 &ldquo;else&rdquo; 开头，那么它就是谓语，对前面 &ldquo;if&rdquo; 的否定。同一级别谓语步骤。</p>
+    <p>步骤可以指定其子步骤的迭代应用。</p>
+    <p>以 &ldquo;<dfn id="assert">Assert</dfn>:&rdquo; 开头的，断言算法不变条件。这样的断言用于制作显然的算法不变量。这样的断言不会增加额外的语义要求，因此不需要通过实现来检查。他们仅仅用于阐述算法。</p>
+    <p>算法的步骤可以使用 &ldquo;Let _x_ be _someValue_&rdquo; 的形式声明任何命名别名。这些别名是引用式的，因为 _x_ 和 _someValue_ 引用相同的基础数据，并且对两者都可见的修改。想要避免这种类似引用行为的算法步骤应该明确的制作右侧的副本：让 &ldquo;Let _x_ 成为 _someValue_&rdquo; 的副本 创建 _someValue_ 的副本。</p>
+    <p>声明后，可以再任何后续步骤中引用别名，并且不得再声明之前引用别名。可以使用 &ldquo;Set _x_ to _someOtherValue_&rdquo; 修改别名。</p>
 
     <emu-clause id=sec-algorithm-conventions-abstract-operations>
-      <h1>Abstract Operations</h1>
-      <p>In order to facilitate their use in multiple parts of this specification, some algorithms, called <dfn>abstract operations</dfn>, are named and written in parameterized functional form so that they may be referenced by name from within other algorithms. Abstract operations are typically referenced using a functional application style such as OperationName(_arg1_, _arg2_). Some abstract operations are treated as polymorphically dispatched methods of class-like specification abstractions. Such method-like abstract operations are typically referenced using a method application style such as _someValue_.OperationName(_arg1_, _arg2_).</p>
+      <h1>抽象算法</h1>
+      <p>为了便于在本规范多个部分中使用，一些 <dfn>抽象操作</dfn> 的算法以参数化的函数形式命名和编写，便于在其它算法中通过名称引用他们。抽象操作通常使用函数应用程序样式引用，例如 OperationName(_arg1_, _arg2_)。一些抽象操作被视为类类规范抽象的多态调度方法。类似方法的抽象操作通常使用方法应用程序样式因素，例如 _someValue_.OperationName(_arg1_, _arg2_).</p>
     </emu-clause>
 
     <emu-clause id=sec-algorithm-conventions-syntax-directed-operations namespace=algorithm-conventions>
-      <h1>Syntax-Directed Operations</h1>
-      <p>A <dfn>syntax-directed operation</dfn> is a named operation whose definition consists of algorithms, each of which is associated with one or more productions from one of the ECMAScript grammars. A production that has multiple alternative definitions will typically have a distinct algorithm for each alternative. When an algorithm is associated with a grammar production, it may reference the terminal and nonterminal symbols of the production alternative as if they were parameters of the algorithm. When used in this manner, nonterminal symbols refer to the actual alternative definition that is matched when parsing the source text.</p>
-      <p>When an algorithm is associated with a production alternative, the alternative is typically shown without any &ldquo;[ ]&rdquo; grammar annotations. Such annotations should only affect the syntactic recognition of the alternative and have no effect on the associated semantics for the alternative.</p>
-      <p>Syntax-directed operations are invoked with a parse node and, optionally, other parameters by using the conventions on steps 1, 3, and 4 in the following algorithm:</p>
+      <h1>语法定向操作</h1>
+      <p><dfn>语法定向操作</dfn> 是一个命名操作，其定义由算法组成，每个算法与一个 ECMAScript 语法的一个或多个产品相关联。具有多个备选定义的生产通常对每个备选方案具有不同的算法。当算法与语法生成相关联，它可以引用生产备选的终端和非终端符号，就像他们是算法的参数一样。当使用这种方式时，非终端符号指的是在解析源文本时匹配的实际替代定义。</p>
+      <p>当算法与生产替代方案相关联时，替代方案通常再没有任何 &ldquo;[ ]&rdquo; 情况下显示语法注释。这样的注释应该只影响替代的句法识别，并且对替代的相关语义没有影响。</p>
+      <p>通过使用以下算法中步骤1，3，4 的约定，使用解析节点和可选参数调用语法定向操作:</p>
       <emu-alg>
-        1. Let _status_ be the result of performing SyntaxDirectedOperation of |SomeNonTerminal|.
-        2. Let _someParseNode_ be the parse of some source text.
-        2. Perform SyntaxDirectedOperation of _someParseNode_.
-        2. Perform SyntaxDirectedOperation of _someParseNode_ passing `"value"` as the argument.
+        1. 人 _status_ 成为执行 |SomeNonTerminal| SyntaxDirectedOperation 的结果。
+        2. 让 _someParseNode_ 成为某些源文本的解析。
+        2. 执行 _someParseNode_ 的 SyntaxDirectedOperation.
+        2. 执行 _someParseNode_ 的 SyntaxDirectedOperation，传递 `"value"`作为参数。
       </emu-alg>
-      <p>Unless explicitly specified otherwise, all chain productions have an implicit definition for every operation that might be applied to that production's left-hand side nonterminal. The implicit definition simply reapplies the same operation with the same parameters, if any, to the chain production's sole right-hand side nonterminal and then returns the result. For example, assume that some algorithm has a step of the form: &ldquo;Return the result of evaluating |Block|&rdquo; and that there is a production:</p>
+      <p>除非另有明确说明，否则所有链生产都对可能应用于该产品的左侧非终结符的每个操作都有一个隐式定义。隐式定义只是将相同的参数重新应用于链生产的唯一右侧非终结符，然后返回结果。例如，假设某些算法具有以为形式步骤：&ldquo; 返回评估结果 |Block|&rdquo; 并且有一个生产：</p>
       <emu-grammar type="example">
         Block :
           `{` StatementList `}`
       </emu-grammar>
-      <p>but the Evaluation operation does not associate an algorithm with that production. In that case, the Evaluation operation implicitly includes an association of the form:</p>
-      <p><b>Runtime Semantics: Evaluation</b></p>
+      <p>但是评估操作不会将算法与该生产相关联。在这种情况下，评估操作隐含的包括以下形式的关联：</p>
+      <p><b>运行语义: Evaluation</b></p>
       <emu-grammar type="example">Block : `{` StatementList `}`</emu-grammar>
       <emu-alg>
-        1. Return the result of evaluating |StatementList|.
+        1. 返回评估 |StatementList| 结果。
       </emu-alg>
     </emu-clause>
 
     <emu-clause id="sec-runtime-semantics">
-      <h1>Runtime Semantics</h1>
-      <p>Algorithms which specify semantics that must be called at runtime are called <dfn>runtime semantics</dfn>. Runtime semantics are defined by abstract operations or syntax-directed operations. Such algorithms always return a completion record.</p>
+      <h1>运行时语义</h1>
+      <p>指定必须在运行时调用的语义的算法称为 <dfn>运行时语义</dfn>。运行时语义由抽象操作或语法定向操作定义。这样的算法总是返回完成记录。</p>
       <emu-clause id="sec-implicit-completion-values">
-        <h1>Implicit Completion Values</h1>
-        <p>The algorithms of this specification often implicitly return Completion Records whose [[Type]] is ~normal~. Unless it is otherwise obvious from the context, an algorithm statement that returns a value that is not a Completion Record, such as:</p>
+        <h1>隐式完成值</h1>
+        <p>本规范的算法通常隐式返回 [Type]] 是 ~normal~ 的完成记录。除非它在上下文中显示，否则返回不是完成几率的值得算法语句，例如：</p>
         <emu-alg>
           1. Return `"Infinity"`.
         </emu-alg>
-        <p>means the same thing as:</p>
+        <p>同:</p>
         <emu-alg>
           1. Return NormalCompletion(`"Infinity"`).
         </emu-alg>
-        <p>However, if the value expression of a &ldquo;return&rdquo; statement is a Completion Record construction literal, the resulting Completion Record is returned. If the value expression is a call to an abstract operation, the &ldquo;return&rdquo; statement simply returns the Completion Record produced by the abstract operation.</p>
-        <p>The abstract operation Completion(_completionRecord_) is used to emphasize that a previously computed Completion Record is being returned. The Completion abstract operation takes a single argument, _completionRecord_, and performs the following steps:</p>
+        <p>然而，如果一个 &ldquo;return&rdquo; 语句的值表达式是一个完成记录构造的字面量，那么完成记录的结果将被返回。如果这个值表达式是一个对象抽象操作的调用，那么 &ldquo;return&rdquo; 语句简单的返回这个抽象操作产生的完成记录。</p>
+        <p>抽象完成操作(_completionRecord_) 被用作强调之前计算的完成记录被返回。Completion 抽象操作接收一个参数，即 _completionRecord_，然后执行下面的步骤：</p>
         <emu-alg>
           1. Assert: _completionRecord_ is a Completion Record.
           1. Return _completionRecord_ as the Completion Record of this abstract operation.
         </emu-alg>
-        <p>A &ldquo;return&rdquo; statement without a value in an algorithm step means the same thing as:</p>
+        <p>一个在算法步骤中没有值得 &ldquo;return&rdquo; 语句与下面的相同：</p>
         <emu-alg>
           1. Return NormalCompletion(*undefined*).
         </emu-alg>
-        <p>Any reference to a Completion Record value that is in a context that does not explicitly require a complete Completion Record value is equivalent to an explicit reference to the [[Value]] field of the Completion Record value unless the Completion Record is an abrupt completion.</p>
+        <p>对于任意在一个上下文中没有显示地需要一个完整的完成记录值的引用，等价一个显式地完成记录的 [[Value]] 字段引用，除非完成记录是一个打断完成。</p>
       </emu-clause>
 
       <emu-clause id="sec-throw-an-exception">
-        <h1>Throw an Exception</h1>
-        <p>Algorithms steps that say to throw an exception, such as</p>
+        <h1>抛出一个异常</h1>
+        <p>描述抛出一个异常的算法步骤，例如：</p>
         <emu-alg>
           1. Throw a *TypeError* exception.
         </emu-alg>
-        <p>mean the same things as:</p>
+        <p>同下面的一样:</p>
         <emu-alg>
           1. Return ThrowCompletion(a newly created *TypeError* object).
         </emu-alg>
@@ -775,31 +774,31 @@
 
       <emu-clause id="sec-returnifabrupt" aoid="ReturnIfAbrupt">
         <h1>ReturnIfAbrupt</h1>
-        <p>Algorithms steps that say or are otherwise equivalent to:</p>
+        <p>算法步骤说明或等同于:</p>
         <emu-alg>
           1. ReturnIfAbrupt(_argument_).
         </emu-alg>
-        <p>mean the same thing as:</p>
+        <p>同下面的一样:</p>
         <emu-alg>
           1. If _argument_ is an abrupt completion, return _argument_.
           1. Else if _argument_ is a Completion Record, set _argument_ to _argument_.[[Value]].
         </emu-alg>
-        <p>Algorithms steps that say or are otherwise equivalent to:</p>
+        <p>或者:</p>
         <emu-alg>
           1. ReturnIfAbrupt(AbstractOperation()).
         </emu-alg>
-        <p>mean the same thing as:</p>
+        <p>同下面的一样:</p>
         <emu-alg>
           1. Let _hygienicTemp_ be AbstractOperation().
           1. If _hygienicTemp_ is an abrupt completion, return _hygienicTemp_.
           1. Else if _hygienicTemp_ is a Completion Record, set _hygienicTemp_ to _hygienicTemp_.[[Value]].
         </emu-alg>
-        <p>Where _hygienicTemp_ is ephemeral and visible only in the steps pertaining to ReturnIfAbrupt.</p>
-        <p>Algorithms steps that say or are otherwise equivalent to:</p>
+        <p>这里 _hygienicTemp_ 是临时的，并且只在 ReturnIfAbrupt 有关的步骤中可见。</p>
+        <p>同下面的一样:</p>
         <emu-alg>
           1. Let _result_ be AbstractOperation(ReturnIfAbrupt(_argument_)).
         </emu-alg>
-        <p>mean the same thing as:</p>
+        <p>同下面的一样:</p>
         <emu-alg>
           1. If _argument_ is an abrupt completion, return _argument_.
           1. If _argument_ is a Completion Record, set _argument_ to _argument_.[[Value]].
@@ -807,44 +806,44 @@
         </emu-alg>
       </emu-clause>
       <emu-clause id="sec-returnifabrupt-shorthands">
-        <h1>ReturnIfAbrupt Shorthands</h1>
-        <p>Invocations of abstract operations and syntax-directed operations that are prefixed by `?` indicate that ReturnIfAbrupt should be applied to the resulting Completion Record. For example, the step:</p>
+        <h1>ReturnIfAbrupt 缩写</h1>
+        <p>对抽象操作和以 `?` 为前缀地指定语法操作的调用暗示着 ReturnIfAbrupt 需要被应用到结果的完成记录中。例如：</p>
         <emu-alg>
           1. ? OperationName().
         </emu-alg>
-        <p>is equivalent to the following step:</p>
+        <p>等价于:</p>
         <emu-alg>
           1. ReturnIfAbrupt(OperationName()).
         </emu-alg>
-        <p>Similarly, for method application style, the step:</p>
+        <p>同样:</p>
         <emu-alg>
           1. ? _someValue_.OperationName().
         </emu-alg>
-        <p>is equivalent to:</p>
+        <p>等价于:</p>
         <emu-alg>
           1. ReturnIfAbrupt(_someValue_.OperationName()).
         </emu-alg>
-        <p>Similarly, prefix `!` is used to indicate that the following invocation of an abstract or syntax-directed operation will never return an abrupt completion and that the resulting Completion Record's [[Value]] field should be used in place of the return value of the operation. For example, the step:</p>
+        <p>同样的，前缀 `!` 被用作暗示下列对于抽象或指定语法操作的调用将不会返回一个打断地完成值，并且作为结果的完成记录 [[Value]] 字段应该被用作替换操作的返回值。例如：</p>
         <emu-alg>
           1. Let _val_ be ! OperationName().
         </emu-alg>
-        <p>is equivalent to the following steps:</p>
+        <p>等价于:</p>
         <emu-alg>
           1. Let _val_ be OperationName().
           1. Assert: _val_ is never an abrupt completion.
           1. If _val_ is a Completion Record, set _val_ to _val_.[[Value]].
         </emu-alg>
-        <p>Syntax-directed operations for runtime semantics make use of this shorthand by placing `!` or `?` before the invocation of the operation:</p>
+        <p>对于运行时语义的指定操作通过在调用操作前替换 `!` 或 `?` 来缩写：</p>
         <emu-alg>
           1. Perform ! SyntaxDirectedOperation of |NonTerminal|.
         </emu-alg>
       </emu-clause>
     </emu-clause>
     <emu-clause id="sec-static-semantic-rules">
-      <h1>Static Semantics</h1>
-      <p>Context-free grammars are not sufficiently powerful to express all the rules that define whether a stream of input elements form a valid ECMAScript |Script| or |Module| that may be evaluated. In some situations additional rules are needed that may be expressed using either ECMAScript algorithm conventions or prose requirements. Such rules are always associated with a production of a grammar and are called the <dfn>static semantics</dfn> of the production.</p>
-      <p>Static Semantic Rules have names and typically are defined using an algorithm. Named Static Semantic Rules are associated with grammar productions and a production that has multiple alternative definitions will typically have for each alternative a distinct algorithm for each applicable named static semantic rule.</p>
-      <p>Unless otherwise specified every grammar production alternative in this specification implicitly has a definition for a static semantic rule named Contains which takes an argument named _symbol_ whose value is a terminal or nonterminal of the grammar that includes the associated production. The default definition of Contains is:</p>
+      <h1>静态语义</h1>
+      <p>不管是被 ECMAScript |Script| 或 |Module| 合法解析的一个输入元素流，上下文无关文法不足以表达所有定义的规则。在某些情况下，需要额外规则通过使用 ECMAScript 算法约定或散文要求来展示。这样的规则总是与一个文法产生式相关联，被称作生产式的静态语义。</p>
+      <p>静态语义规则拥有名称，并且通常用一个算法来定义。具有名称的静态语义规则与文法产生相关联，对于每个可采用具有名称的静态语义规则，一个包含多个可选部分定义的产生式通常会对每个可选部分定义一个独有算法。</p>
+      <p>除非在本规范中指定文法产生式可选部分隐式地包含一个 Contains 接收一个值为包含相关产生式的文法的终结符或者非终结符的 _symbol_ 参数静态语义规则的定义。默认的包含定义为：</p>
       <emu-alg>
         1. For each child node _child_ of this Parse Node, do
           1. If _child_ is an instance of _symbol_, return *true*.
@@ -853,16 +852,16 @@
             1. If _contained_ is *true*, return *true*.
         1. Return *false*.
       </emu-alg>
-      <p>The above definition is explicitly over-ridden for specific productions.</p>
-      <p>A special kind of static semantic rule is an <dfn id="early-error-rule">Early Error Rule</dfn>. Early error rules define early error conditions (see clause <emu-xref href="#sec-error-handling-and-language-extensions"></emu-xref>) that are associated with specific grammar productions. Evaluation of most early error rules are not explicitly invoked within the algorithms of this specification. A conforming implementation must, prior to the first evaluation of a |Script| or |Module|, validate all of the early error rules of the productions used to parse that |Script| or |Module|. If any of the early error rules are violated the |Script| or |Module| is invalid and cannot be evaluated.</p>
+      <p>上面的定义是显式地重写了规范的产生式。</p>
+      <p>一个特殊的静态语义规则是<dfn id="early-error-rule">早期错误规则(Early Error Rule)</dfn>。早期错误规则定义了早期错误条件(见<emu-xref href="#sec-error-handling-and-language-extensions"></emu-xref>) ，它们与具体文法产生式相关联。大多数早期错误规则的解析不是在文本规范算法中显示地被调用，一个符合规范的实现必须在第一次解析脚本或模块前，验证所有的被调用解析脚本或模块的生产式的早期错误规则。如果违反了任意的早期错误规则，那么脚本或者模块就是不合法的，并且不能被解析执行。</p>
     </emu-clause>
     <emu-clause id=sec-mathematical-operations>
-      <h1>Mathematical Operations</h1>
-      <p>Mathematical operations such as addition, subtraction, negation, multiplication, division, and the mathematical functions defined later in this clause should always be understood as computing exact mathematical results on mathematical real numbers, which unless otherwise noted do not include infinities and do not include a negative zero that is distinguished from positive zero. Algorithms in this standard that model floating-point arithmetic include explicit steps, where necessary, to handle infinities and signed zero and to perform rounding. If a mathematical operation or function is applied to a floating-point number, it should be understood as being applied to the exact mathematical value represented by that floating-point number; such a floating-point number must be finite, and if it is *+0* or *-0* then the corresponding mathematical value is simply 0.</p>
-      <p>The mathematical function <emu-eqn id="eqn-abs" aoid="abs">abs(_x_)</emu-eqn> produces the absolute value of _x_, which is <emu-eqn>-_x_</emu-eqn> if _x_ is negative (less than zero) and otherwise is _x_ itself.</p>
-      <p>The mathematical function <emu-eqn id="eqn-min" aoid="min">min(_x1_, _x2_, ..., _xN_)</emu-eqn> produces the mathematically smallest of <emu-eqn>_x1_</emu-eqn> through <emu-eqn>_xN_</emu-eqn>. The mathematical function <emu-eqn id="eqn-max" aoid="max">max(_x1_, _x2_, ..., _xN_)</emu-eqn> produces the mathematically largest of <emu-eqn>_x1_</emu-eqn> through <emu-eqn>_xN_</emu-eqn>. The domain and range of these mathematical functions include *+&infin;* and *-&infin;*.</p>
-      <p>The notation &ldquo;<emu-eqn id="eqn-modulo" aoid="modulo">_x_ modulo _y_</emu-eqn>&rdquo; (_y_ must be finite and nonzero) computes a value _k_ of the same sign as _y_ (or zero) such that <emu-eqn>abs(_k_) &lt; abs(_y_) and _x_ - _k_ = _q_ &times; _y_</emu-eqn> for some integer _q_.</p>
-      <p>The mathematical function <emu-eqn id="eqn-floor" aoid="floor">floor(_x_)</emu-eqn> produces the largest integer (closest to positive infinity) that is not larger than _x_.</p>
+      <h1>数学操作</h1>
+      <p>除非其它地方特别注明不包括无限并且不包括负0（为了与正0区分），数学操作，例如加，减，否定（逻辑非），乘，除以及随后在条款中定义的数学函数应总是被当作是对于数学中所有真实数字计算出来的准确的结果。本规范算法中的浮点运算包含显式地的步骤，它们对于处理无穷，有符号的0，以及舍入是必要的。如果一个数学操作或者函数被应用在一个浮点数上，那么它必须被当作应用到用浮点数表示的具体的数学值；这样的浮点数必须是有限的，并且如果它是+0或者-0的话，那么相应的数学值就是简简单单的0。</p>
+      <p>数学函数 <emu-eqn id="eqn-abs" aoid="abs">abs(_x_)</emu-eqn> 用于计算 _x_ 的绝对值，如果 <emu-eqn>-_x_</emu-eqn> 是负数（小于0），那么结果就是 _-x_，否则结果就是 _x_ 本身。</p>
+      <p>数学函数 <emu-eqn id="eqn-min" aoid="min">min(_x1_, _x2_, ..., _xN_)</emu-eqn> 计算从 <emu-eqn>_x1_</emu-eqn> 到 <emu-eqn>_xN_</emu-eqn>的最小值。数学函数 <emu-eqn id="eqn-max" aoid="max">max(_x1_, _x2_, ..., _xN_)</emu-eqn> 计算从 <emu-eqn>_x1_</emu-eqn> 到 <emu-eqn>_xN_</emu-eqn>的最大值。这些数学函数的域以及定义范围包括 *+&infin;* and *-&infin;*。</p>
+      <p>符号 &ldquo;<emu-eqn id="eqn-modulo" aoid="modulo">_x_ modulo _y_</emu-eqn>&rdquo; (_y_ 必须是有限且非0) 计算一个值 _k_ ，它的符号与 _y_ (或0)一致， 这样满足<emu-eqn>abs(_k_) &lt; abs(_y_) 以及可以找到一个正数 _y_ 使得 _x_ - _k_ = _q_ &times; _y_</emu-eqn></p>
+      <p>数学函数 <emu-eqn id="eqn-floor" aoid="floor">floor(_x_)</emu-eqn> 生成不大于 _x_ 的最大整数（接近正无穷大）。</p>
       <emu-note>
         <p><emu-eqn>floor(_x_) = _x_ - (_x_ modulo 1)</emu-eqn>.</p>
       </emu-note>
@@ -871,61 +870,59 @@
 </emu-clause>
 
 <emu-clause id="sec-ecmascript-data-types-and-values" aoid="Type">
-  <h1>ECMAScript Data Types and Values</h1>
-  <p>Algorithms within this specification manipulate values each of which has an associated type. The possible value types are exactly those defined in this clause. Types are further subclassified into ECMAScript language types and specification types.</p>
-  <p>Within this specification, the notation &ldquo;Type(_x_)&rdquo; is used as shorthand for &ldquo;the <dfn id="type">type</dfn> of _x_&rdquo; where &ldquo;type&rdquo; refers to the ECMAScript language and specification types defined in this clause. When the term &ldquo;empty&rdquo; is used as if it was naming a value, it is equivalent to saying &ldquo;no value of any type&rdquo;.</p>
+  <h1>ECMAScript 数据类型和值</h1>
+  <p>本规范的算法操作的每一个都有其相应的类型。可能的值类型都在本章中说明。类型又进一步分为 ECMAScript 语言类型以及规范类型。</p>
+  <p>在本规范中，符号 &ldquo;Type(_x_)&rdquo; 作为 &ldquo;the <dfn id="type">type</dfn> of _x_&rdquo; 的简写，这里的 &ldquo;type&rdquo; 指定义本条款中 ECMAScript 语言以及规范类型。当 &ldquo;empty&rdquo; 被使用时，和 &ldquo;no value of any type&rdquo; 是相等的。</p>
 
   <emu-clause id="sec-ecmascript-language-types">
-    <h1>ECMAScript Language Types</h1>
-    <p>An <dfn>ECMAScript language type</dfn> corresponds to values that are directly manipulated by an ECMAScript programmer using the ECMAScript language. The ECMAScript language types are Undefined, Null, Boolean, String, Symbol, Number, and Object. An <dfn>ECMAScript language value</dfn> is a value that is characterized by an ECMAScript language type.</p>
+    <h1>ECMAScript 语言类型</h1>
+    <p>一个<dfn>ECMAScript 语言类型</dfn> 对应那些被使用 ECMAScript 程序直接操作的值。 ECMAScript 语言类型是 Undefined, Null, Boolean, String, Symbol, Number, and Object。一个 <dfn>ECMAScript 语言值</dfn>是一个具有 ECMAScript 语言类型特征的值。</p>
 
     <emu-clause id="sec-ecmascript-language-types-undefined-type">
-      <h1>The Undefined Type</h1>
-      <p>The Undefined type has exactly one value, called *undefined*. Any variable that has not been assigned a value has the value *undefined*.</p>
+      <h1>Undefined 类型</h1>
+      <p>Undefined 类型仅仅只有一个值，被称为 *undefined*。任何没有被分配一个值得变量的值就是 *undefined*。</p>
     </emu-clause>
 
     <emu-clause id="sec-ecmascript-language-types-null-type">
-      <h1>The Null Type</h1>
-      <p>The Null type has exactly one value, called *null*.</p>
+      <h1>Null 类型</h1>
+      <p>Null 类型仅仅由一个值，被称为 *null*。</p>
     </emu-clause>
 
     <emu-clause id="sec-ecmascript-language-types-boolean-type">
-      <h1>The Boolean Type</h1>
-      <p>The Boolean type represents a logical entity having two values, called *true* and *false*.</p>
+      <h1>Boolean 类型</h1>
+      <p>Boolean 类型代表一个拥有两个值的逻辑实体，它们被称为 *true* 和 *false*。</p>
     </emu-clause>
 
     <emu-clause id="sec-ecmascript-language-types-string-type">
-      <h1>The String Type</h1>
-      <p>The String type is the set of all ordered sequences of zero or more 16-bit unsigned integer values (&ldquo;elements&rdquo;) up to a maximum length of 2<sup>53</sup> - 1 elements. The String type is generally used to represent textual data in a running ECMAScript program, in which case each element in the String is treated as a UTF-16 code unit value. Each element is regarded as occupying a position within the sequence. These positions are indexed with nonnegative integers. The first element (if any) is at index 0, the next element (if any) at index 1, and so on. The length of a String is the number of elements (i.e., 16-bit values) within it. The empty String has length zero and therefore contains no elements.</p>
-      <p>ECMAScript operations that do not interpret String contents apply no further semantics. Operations that do interpret String values treat each element as a single UTF-16 code unit. However, ECMAScript does not restrict the value of or relationships between these code units, so operations that further interpret String contents as sequences of Unicode code points encoded in UTF-16 must account for ill-formed subsequences. Such operations apply special treatment to every code unit with a numeric value in the inclusive range 0xD800 to 0xDBFF (defined by the Unicode Standard as a <dfn id="leading-surrogate">leading surrogate</dfn>, or more formally as a <dfn id="high-surrogate-code-unit">high-surrogate code unit</dfn>) and every code unit with a numeric value in the inclusive range 0xDC00 to 0xDFFF (defined as a <dfn id="trailing-surrogate">trailing surrogate</dfn>, or more formally as a <dfn id="low-surrogate-code-unit">low-surrogate code unit</dfn>) using the following rules:</p>
+      <h1>String 类型</h1>
+      <p>String 类型是所有 0 或 16bit 无符号整数值 (&ldquo;elements&rdquo;) 的有序集，最大长度是 2<sup>53</sup> - 1 元素长度。String 类型通常被用作在一个正在运行的 ECMAScript 程序中显示文本，String 中的每个元素都被当作一个 UTF-16 代码单元。每个元素都被当作这个序列的一个占位，这些位置使用非负整数来进行索引。第一个元素（如果存在的话）在索引 0 的位置，下一个元素（如果存在的话）在索引1的位置，以此类推。一个 String 的长度是它内部元素 (即 16bit 值)得个数。空字符串长度为 0，因此没有元素。</p>
+      <p>不解析 String 内容的 ECMAScript 操作不再应用其它语义。解析 String 值的操作将每个元素视为单个 UTF-16 代码单元。然而，ECMAScript 不会对这个字符串的代码单元序列添加任何限制或需求，所有当按照 UTF-16 代码单元解释的时候，它们是不合规范的。此类操作对每个代码单元应用特殊处理，其数值在包含范围 0xD800 到 0xDBFF (由 Unicode 标准定义为<dfn id="leading-surrogate">主要代理(leading surrogate)</dfn>或更正式的称为 <dfn id="high-surrogate-code-unit">更高代理代码单元</dfn>) 和每个代码单元的数值包含在范围 0xDC00 到 0xDFFF (定义为<dfn id="trailing-surrogate">尾随代理(trailing surrogate)</dfn>, 或更正式的称为<dfn id="low-surrogate-code-unit">低代理代码单元</dfn>)，规则如下：</p>
       <ul>
         <li>
-          A code unit that is not a <emu-xref href="#leading-surrogate"></emu-xref> and not a <emu-xref href="#trailing-surrogate"></emu-xref> is interpreted as a code point with the same value.
+          代码单元不是 <emu-xref href="#leading-surrogate"></emu-xref> 也不是 <emu-xref href="#trailing-surrogate"></emu-xref>被解析为具有相同值得代码点。
         </li>
-        <li>
-          A sequence of two code units, where the first code unit _c1_ is a <emu-xref href="#leading-surrogate"></emu-xref> and the second code unit _c2_ a <emu-xref href="#trailing-surrogate"></emu-xref>, is a <dfn id="surrogate-pair">surrogate pair</dfn> and is interpreted as a code point with the value (_c1_ - 0xD800) &times; 0x400 + (_c2_ - 0xDC00) + 0x10000. (See <emu-xref href="#sec-utf16decode"></emu-xref>)
+        <li>两个字符序列，其中一个代码单元是 _c1_ <emu-xref href="#leading-surrogate"></emu-xref> 另一个是 _c2_ <emu-xref href="#trailing-surrogate"></emu-xref>，它是一个 <dfn id="surrogate-pair">代理对（surrogate pair）</dfn> 被解析为具有值 (_c1_ - 0xD800) &times; 0x400 + (_c2_ - 0xDC00) + 0x10000。(See <emu-xref href="#sec-utf16decode"></emu-xref>)
         </li>
-        <li>
-          A code unit that is a <emu-xref href="#leading-surrogate"></emu-xref> or <emu-xref href="#trailing-surrogate"></emu-xref>, but is not part of a <emu-xref href="#surrogate-pair"></emu-xref>, is interpreted as a code point with the same value.
+        <li>代码单元是<emu-xref href="#leading-surrogate"></emu-xref> 或 <emu-xref href="#trailing-surrogate"></emu-xref>，但不是一个 <emu-xref href="#surrogate-pair"></emu-xref>，被解析为具有相同值得代码点。
         </li>
       </ul>
-      <p>The function `String.prototype.normalize` (see <emu-xref href="#sec-string.prototype.normalize"></emu-xref>) can be used to explicitly normalize a String value. `String.prototype.localeCompare` (see <emu-xref href="#sec-string.prototype.localecompare"></emu-xref>) internally normalizes String values, but no other operations implicitly normalize the strings upon which they operate. Only operations that are explicitly specified to be language or locale sensitive produce language-sensitive results.</p>
+      <p>函数 `String.prototype.normalize` (见 <emu-xref href="#sec-string.prototype.normalize"></emu-xref>) 可以用来显式规范化一个字符串值。 `String.prototype.localeCompare` (见 <emu-xref href="#sec-string.prototype.localecompare"></emu-xref>) 内部对字符串进行了规范化，但是除此之外其它操作都没有隐式地规范化字符串。只有那些被显式地指定用来处理语言或对语言环境敏感的操作才会产生语言明感的结果。</p>
       <emu-note>
-        <p>The rationale behind this design was to keep the implementation of Strings as simple and high-performing as possible. If ECMAScript source text is in Normalized Form C, string literals are guaranteed to also be normalized, as long as they do not contain any Unicode escape sequences.</p>
+        <p>这种设计背后的基本原理保证 Strings 的实现尽可能简单高效。如果 ECMAScript 源文本的规范化形式在 C 内，那么字符串字面量也应当被认为是规范化的，只要它们不包含任何 Unicode 转移序列。</p>
       </emu-note>
-      <p>In this specification, the phrase "the <dfn>string-concatenation</dfn> of _A_, _B_, ..." (where each argument is a String value, a code unit, or a sequence of code units) denotes the String value whose sequence of code units is the concatenation of the code units (in order) of each of the arguments (in order).</p>
+      <p>在本规范中，短语 _A_, _B_ 的 <dfn>字符串连接</dfn>(其中每个参数是字符串值，代码单元或代码单元序列)表示字符串值，其代码单元序列是每个参数的代码单元（按顺序）的串联（按顺序）。</p>
     </emu-clause>
 
     <emu-clause id="sec-ecmascript-language-types-symbol-type">
-      <h1>The Symbol Type</h1>
-      <p>The Symbol type is the set of all non-String values that may be used as the key of an Object property (<emu-xref href="#sec-object-type"></emu-xref>).</p>
-      <p>Each possible Symbol value is unique and immutable.</p>
-      <p>Each Symbol value immutably holds an associated value called [[Description]] that is either *undefined* or a String value.</p>
+      <h1>Symbol 类型</h1>
+      <p>Symbol 类型是用作对象属性的键值的所有非字符串值得集合。(<emu-xref href="#sec-object-type"></emu-xref>)</p>
+      <p>每个可能的 Symbol 值都是唯一不可变更的。</p>
+      <p>每个 Symbol 类型都有一个不可改变，且相互独立的被叫做 [[Description]] 的值，它只能是 *undefined* 或字符串值。</p>
 
       <emu-clause id="sec-well-known-symbols">
         <h1>Well-Known Symbols</h1>
-        <p>Well-known symbols are built-in Symbol values that are explicitly referenced by algorithms of this specification. They are typically used as the keys of properties whose values serve as extension points of a specification algorithm. Unless otherwise specified, well-known symbols values are shared by all realms (<emu-xref href="#sec-code-realms"></emu-xref>).</p>
-        <p>Within this specification a well-known symbol is referred to by using a notation of the form @@name, where &ldquo;name&rdquo; is one of the values listed in <emu-xref href="#table-1"></emu-xref>.</p>
+        <p>Well-known symbols 是本篇规范中描述的一些明确的内置符号。他们通常用作键的属性值。他们通常被作用属性的键值，并为规范的算法提供了一种扩展。除非显式的说明，well-known symbols 值被所有域共享。(<emu-xref href="#sec-code-realms"></emu-xref>)</p>
+        <p>在本规范中，well-known symbol 通过 @@name 的形式被引用，这里的 &ldquo;name&rdquo; 是<emu-xref href="#table-1"></emu-xref>中的某一个</p>
         <emu-table id="table-1" caption="Well-known Symbols">
           <table>
             <tbody>
@@ -948,7 +945,7 @@
                 `"Symbol.asyncIterator"`
               </td>
               <td>
-                A method that returns the default AsyncIterator for an object. Called by the semantics of the `for`-`await`-`of` statement.
+                方法，返回对象的默认 AsyncIterator。由 `for`-`await`-`of` 语句调用。
               </td>
             </tr>
             <tr>
@@ -959,7 +956,7 @@
                 `"Symbol.hasInstance"`
               </td>
               <td>
-                A method that determines if a constructor object recognizes an object as one of the constructor's instances. Called by the semantics of the `instanceof` operator.
+                方法，判断对象是否为某个构造函数的示例，由 `instanceof` 操作调用。
               </td>
             </tr>
             <tr>
@@ -970,7 +967,7 @@
                 `"Symbol.isConcatSpreadable"`
               </td>
               <td>
-                A Boolean valued property that if true indicates that an object should be flattened to its array elements by <emu-xref href="#sec-array.prototype.concat">`Array.prototype.concat`</emu-xref>.
+                布尔值，若为 true 则表明对象内部的数组应该用<emu-xref href="#sec-array.prototype.concat">`Array.prototype.concat`</emu-xref>合并起来。
               </td>
             </tr>
             <tr>
@@ -981,7 +978,7 @@
                 `"Symbol.iterator"`
               </td>
               <td>
-                A method that returns the default Iterator for an object. Called by the semantics of the for-of statement.
+                方法，返回一个对象的迭代器。被 for-of 语句调用。
               </td>
             </tr>
             <tr>
@@ -992,7 +989,7 @@
                 `"Symbol.match"`
               </td>
               <td>
-                A regular expression method that matches the regular expression against a string. Called by the <emu-xref href="#sec-string.prototype.match">`String.prototype.match`</emu-xref> method.
+                正则，在字符串中替换匹配正则表达式的字符序号。由 <emu-xref href="#sec-string.prototype.match">`String.prototype.match`</emu-xref> 调用。
               </td>
             </tr>
             <tr>
@@ -1003,7 +1000,7 @@
                 `"Symbol.replace"`
               </td>
               <td>
-                A regular expression method that replaces matched substrings of a string. Called by the <emu-xref href="#sec-string.prototype.replace">`String.prototype.replace`</emu-xref> method.
+                正则，在字符串中替换匹配正则表达式的字符。由 <emu-xref href="#sec-string.prototype.replace">`String.prototype.replace`</emu-xref> 调用。
               </td>
             </tr>
             <tr>
@@ -1014,7 +1011,7 @@
                 `"Symbol.search"`
               </td>
               <td>
-                A regular expression method that returns the index within a string that matches the regular expression. Called by the <emu-xref href="#sec-string.prototype.search">`String.prototype.search`</emu-xref> method.
+                正则，在字符串中返回正则表达式的字符索引。由<emu-xref href="#sec-string.prototype.search">`String.prototype.search`</emu-xref> 调用.
               </td>
             </tr>
             <tr>
@@ -1025,7 +1022,7 @@
                 `"Symbol.species"`
               </td>
               <td>
-                A function valued property that is the constructor function that is used to create derived objects.
+                值为函数的属性，用于创建导出对象的构造器函数。
               </td>
             </tr>
             <tr>
@@ -1036,7 +1033,7 @@
                 `"Symbol.split"`
               </td>
               <td>
-                A regular expression method that splits a string at the indices that match the regular expression. Called by the <emu-xref href="#sec-string.prototype.split">`String.prototype.split`</emu-xref> method.
+                正则，在字符串中分割正则表达式匹配的字符。由 <emu-xref href="#sec-string.prototype.split">`String.prototype.split`</emu-xref> 调用。
               </td>
             </tr>
             <tr>
@@ -1047,7 +1044,7 @@
                 `"Symbol.toPrimitive"`
               </td>
               <td>
-                A method that converts an object to a corresponding primitive value. Called by the ToPrimitive abstract operation.
+                方法，将一个对象转换为对应的原始值。由 ToPrimitive 概念调用。
               </td>
             </tr>
             <tr>
@@ -1058,7 +1055,7 @@
                 `"Symbol.toStringTag"`
               </td>
               <td>
-                A String valued property that is used in the creation of the default string description of an object. Accessed by the built-in method <emu-xref href="#sec-object.prototype.tostring">`Object.prototype.toString`</emu-xref>.
+                值为字符串的属性，用以创建一个对象的默认字符串描述，由内置方法 <emu-xref href="#sec-object.prototype.tostring">`Object.prototype.toString`</emu-xref> 调用。
               </td>
             </tr>
             <tr>
@@ -1069,7 +1066,7 @@
                 `"Symbol.unscopables"`
               </td>
               <td>
-                An object valued property whose own and inherited property names are property names that are excluded from the `with` environment bindings of the associated object.
+                值为对象的属性，该对象自身的以及继承的属性名就是同绑定相关的对象属性名，除 `with` 条件语句以外。
               </td>
             </tr>
             </tbody>
@@ -1079,50 +1076,48 @@
     </emu-clause>
 
     <emu-clause id="sec-ecmascript-language-types-number-type">
-      <h1>The Number Type</h1>
-      <p>The Number type has exactly 18437736874454810627 (that is, <emu-eqn>2<sup>64</sup> - 2<sup>53</sup> + 3</emu-eqn>) values, representing the double-precision 64-bit format IEEE 754-2008 values as specified in the IEEE Standard for Binary Floating-Point Arithmetic, except that the 9007199254740990 (that is, <emu-eqn>2<sup>53</sup> - 2</emu-eqn>) distinct &ldquo;Not-a-Number&rdquo; values of the IEEE Standard are represented in ECMAScript as a single special *NaN* value. (Note that the *NaN* value is produced by the program expression `NaN`.) In some implementations, external code might be able to detect a difference between various Not-a-Number values, but such behaviour is implementation-dependent; to ECMAScript code, all *NaN* values are indistinguishable from each other.</p>
+      <h1>Number 类型</h1>
+      <p>Number 类型刚好有 18437736874454810627 个(即 <emu-eqn>2<sup>64</sup> - 2<sup>53</sup> + 3</emu-eqn>) 值，表示双精度 64bit 格式在 IEEE 标准中关于二进制浮点数类型运算的 IEEE 754-2008 规范的值，除了 9007199254740990 (即<emu-eqn>2<sup>53</sup> - 2</emu-eqn>) 是一个 IEEE 规范中截然不同的 &ldquo;Not-a-Number&rdquo; 值，被当作一个独立的 *NaN* 值在 ECMAScript 中展示。(注意 *NaN* 值由程序表达式 `NaN`产生)。在一些实现中，外部代码可能能够检测各种 Not-a-Number 值之间的差异，但是这种行为是依赖于实现的。对于 ECMAScript 代码，所有 *NaN* 值都无法区分。</p>
       <emu-note>
-        <p>The bit pattern that might be observed in an ArrayBuffer (see <emu-xref href="#sec-arraybuffer-objects"></emu-xref>) or a SharedArrayBuffer (see <emu-xref href="#sec-sharedarraybuffer-objects"></emu-xref>) after a Number value has been stored into it is not necessarily the same as the internal representation of that Number value used by the ECMAScript implementation.</p>
+        <p>在一个 Number 值已经被存储后，位模式可能可以通过一个 ArrayBuffer (见 <emu-xref href="#sec-arraybuffer-objects"></emu-xref>) 或 SharedArrayBuffer (见 <emu-xref href="#sec-sharedarraybuffer-objects"></emu-xref>) 观察到，但是这和 Number 值内部表示一样，不是 ECMAScript 的实现所必须的。</p>
       </emu-note>
-      <p>There are two other special values, called *positive Infinity* and *negative Infinity*. For brevity, these values are also referred to for expository purposes by the symbols *+&infin;* and *-&infin;*, respectively. (Note that these two infinite Number values are produced by the program expressions `+Infinity` (or simply `Infinity`) and `-Infinity`.)</p>
-      <p>The other 18437736874454810624 (that is, <emu-eqn>2<sup>64</sup> - 2<sup>53</sup></emu-eqn>) values are called the finite numbers. Half of these are positive numbers and half are negative numbers; for every finite positive Number value there is a corresponding negative value having the same magnitude.</p>
-      <p>Note that there is both a *positive zero* and a *negative zero*. For brevity, these values are also referred to for expository purposes by the symbols *+0* and *-0*, respectively. (Note that these two different zero Number values are produced by the program expressions `+0` (or simply `0`) and `-0`.)</p>
-      <p>The 18437736874454810622 (that is, <emu-eqn>2<sup>64</sup> - 2<sup>53</sup> - 2</emu-eqn>) finite nonzero values are of two kinds:</p>
-      <p>18428729675200069632 (that is, <emu-eqn>2<sup>64</sup> - 2<sup>54</sup></emu-eqn>) of them are normalized, having the form</p>
+      <p>还有两种其它特殊值，叫做 *正无穷* 和 *负无穷*。也可以用简写符号 *+&infin;* 和 *-&infin;* 表示。（注意这两个无穷数由程序表达式 `+Infinity`（简写 `Infinity`）和 `-Infinity` 表示。）</p>
+      <p>其它的 18437736874454810624 (即 <emu-eqn>2<sup>64</sup> - 2<sup>53</sup></emu-eqn>) 值被称作有限数（finite numbers）。其中一半是正数，一半是负数，对于每个正数而言，都有一个与之对应的相同规模的负数。</p>
+      <p>注意还有一个 *正零* 和 *负零*。为了简洁起见，类似的在说明目的时，分别用符号 *+0* 和 *-0* 表示。（注意这两个数字零由冲虚表达式`+0` (简写 `0`) 和 `-0`产生。</p>
+      <p> 18437736874454810622 (即 <emu-eqn>2<sup>64</sup> - 2<sup>53</sup> - 2</emu-eqn>) 个有限非零值分两种:</p>
+      <p>其中 18428729675200069632 (即 <emu-eqn>2<sup>64</sup> - 2<sup>54</sup></emu-eqn>) 个是常规值，如</p>
       <div class="math-display">
         _s_ &times; _m_ &times; 2<sup>_e_</sup>
       </div>
-      <p>where _s_ is +1 or -1, _m_ is a positive integer less than 2<sup>53</sup> but not less than 2<sup>52</sup>, and _e_ is an integer ranging from -1074 to 971, inclusive.</p>
-      <p>The remaining 9007199254740990 (that is, <emu-eqn>2<sup>53</sup> - 2</emu-eqn>) values are denormalized, having the form</p>
+      <p>这里 _s_ 是 +1 或 -1, _m_ 是一个小于 2<sup>53</sup> 但不小于 2<sup>52</sup>的正整数， _e_ 是一个闭区间 -1074 到 971 中的整数。</p>
+      <p>剩下的 9007199254740990 (即 <emu-eqn>2<sup>53</sup> - 2</emu-eqn>) 值是非常规的，如</p>
       <div class="math-display">
         _s_ &times; _m_ &times; 2<sup>_e_</sup>
       </div>
-      <p>where _s_ is +1 or -1, _m_ is a positive integer less than 2<sup>52</sup>, and _e_ is -1074.</p>
-      <p>Note that all the positive and negative integers whose magnitude is no greater than 2<sup>53</sup> are representable in the Number type (indeed, the integer 0 has two representations, *+0* and *-0*).</p>
-      <p>A finite number has an <em>odd significand</em> if it is nonzero and the integer _m_ used to express it (in one of the two forms shown above) is odd. Otherwise, it has an <em>even significand</em>.</p>
-      <p>In this specification, the phrase &ldquo;the Number value for _x_&rdquo; where _x_ represents an exact real mathematical quantity (which might even be an irrational number such as &pi;) means a Number value chosen in the following manner. Consider the set of all finite values of the Number type, with *-0* removed and with two additional values added to it that are not representable in the Number type, namely 2<sup>1024</sup> (which is <emu-eqn>+1 &times; 2<sup>53</sup> &times; 2<sup>971</sup></emu-eqn>) and <emu-eqn>-2<sup>1024</sup></emu-eqn> (which is <emu-eqn>-1 &times; 2<sup>53</sup> &times; 2<sup>971</sup></emu-eqn>). Choose the member of this set that is closest in value to _x_. If two values of the set are equally close, then the one with an even significand is chosen; for this purpose, the two extra values 2<sup>1024</sup> and <emu-eqn>-2<sup>1024</sup></emu-eqn> are considered to have even significands. Finally, if 2<sup>1024</sup> was chosen, replace it with *+&infin;*; if <emu-eqn>-2<sup>1024</sup></emu-eqn> was chosen, replace it with *-&infin;*; if *+0* was chosen, replace it with *-0* if and only if _x_ is less than zero; any other chosen value is used unchanged. The result is the Number value for _x_. (This procedure corresponds exactly to the behaviour of the IEEE 754-2008 &ldquo;round to nearest, ties to even&rdquo; mode.)</p>
-      <p>Some ECMAScript operators deal only with integers in specific ranges such as <emu-eqn>-2<sup>31</sup></emu-eqn> through <emu-eqn>2<sup>31</sup> - 1</emu-eqn>, inclusive, or in the range 0 through <emu-eqn>2<sup>16</sup> - 1</emu-eqn>, inclusive. These operators accept any value of the Number type but first convert each such value to an integer value in the expected range. See the descriptions of the numeric conversion operations in <emu-xref href="#sec-type-conversion"></emu-xref>.</p>
+      <p>_s_ 是 +1 或 -1, _m_ 是一个小于 2<sup>52</sup> _e_ 是 -1074。</p>
+      <p>注意，所有规模不超过 2<sup>53</sup>的正整数和负整数都可被数值类型表示(整数由两个呈现形式 *+0* 和 *-0*)。</p>
+      <p>如果有一个有限数值是非零的，且用它来表示它的整数_m_（上面显示的两种形式之一）是奇数，则该数由奇数标记，否则它有偶数标记。</p>
+      <p>在本规范中，短语 &ldquo;the Number value for _x_&rdquo; 里的 _x_ 刚好表示一个非零值得真实数学量(也有可能是如 &pi; 之类的无理数)，也意味着一个 Number 值按照下面的方式被选择出来。考虑  Number 类型中所有的有限数集合，除去 *-0* 加上两个 Number 类型无法表示的值，被称为 2<sup>1024</sup> (即<emu-eqn>+1 &times; 2<sup>53</sup> &times; 2<sup>971</sup></emu-eqn>) 和 <emu-eqn>-2<sup>1024</sup></emu-eqn> (即 <emu-eqn>-1 &times; 2<sup>53</sup> &times; 2<sup>971</sup></emu-eqn>)。然后选择这个集合中离 _x_ 最近的元素。如果两个值一样接近，那么选择有偶数尾数的那个。为此， 2<sup>1024</sup> 和 <emu-eqn>-2<sup>1024</sup></emu-eqn> 这两个超额值被认为由偶数标记。最终如果 2<sup>1024</sup> 被选中，用  *+&infin;*替代它。如果<emu-eqn>-2<sup>1024</sup></emu-eqn> 被选中则用 *-&infin;*替代。如果 *+0* 被选中，有且只有 _x_ 小于零时，用 -0 替代它。其它任何被选中的值都不变。结果就是  _x_是 Number 值 (这过程正是 IEEE 754-2008 &ldquo;的四舍五入模式对应的行为)</p>
+      <p>某些 ECMAScript 运算符仅涉及闭区间 <emu-eqn>-2<sup>31</sup></emu-eqn> 到 <emu-eqn>2<sup>31</sup> - 1</emu-eqn>的整数，或闭区间 0 到 <emu-eqn>2<sup>16</sup> - 1</emu-eqn>。这些运算符接受任何数值类型的值，不过，数值首先被转换为上述范围内的值，参考数字转换操作 <emu-xref href="#sec-type-conversion"></emu-xref>.</p>
     </emu-clause>
 
     <emu-clause id="sec-object-type">
-      <h1>The Object Type</h1>
-      <p>An Object is logically a collection of properties. Each property is either a data property, or an accessor property:</p>
+      <h1>Object 类型</h1>
+      <p>一个对象逻辑上是一个属性的集合。每个属性要么是一个暑假属性，要么是一个访问器属性：</p>
       <ul>
-        <li>
-          A <dfn>data property</dfn> associates a key value with an ECMAScript language value and a set of Boolean attributes.
+        <li>一个<dfn>数据属性</dfn>关联一个 ECMAScript 语言值的 key 以及一个布尔属性的集合。
         </li>
-        <li>
-          An <dfn>accessor property</dfn> associates a key value with one or two accessor functions, and a set of Boolean attributes. The accessor functions are used to store or retrieve an ECMAScript language value that is associated with the property.
+        <li>一个<dfn>访问器属性</dfn> 关联一个或两个访问器函数以及一组布尔属性的 key 值。访问器函数用于存储或检索与该属性关联的 ECMAScript 语言值。
         </li>
       </ul>
-      <p>Properties are identified using key values. A property key value is either an ECMAScript String value or a Symbol value. All String and Symbol values, including the empty string, are valid as property keys. A <dfn id="property-name">property name</dfn> is a property key that is a String value.</p>
-      <p>An <dfn id="integer-index">integer index</dfn> is a String-valued property key that is a canonical numeric String (see <emu-xref href="#sec-canonicalnumericindexstring"></emu-xref>) and whose numeric value is either *+0* or a positive integer &le; 2<sup>53</sup> - 1. An <dfn id="array-index">array index</dfn> is an integer index whose numeric value _i_ is in the range <emu-eqn>+0 &le; _i_ &lt; 2<sup>32</sup> - 1</emu-eqn>.</p>
-      <p>Property keys are used to access properties and their values. There are two kinds of access for properties: <em>get</em> and <em>set</em>, corresponding to value retrieval and assignment, respectively. The properties accessible via get and set access includes both <em>own properties</em> that are a direct part of an object and <em>inherited properties</em> which are provided by another associated object via a property inheritance relationship. Inherited properties may be either own or inherited properties of the associated object. Each own property of an object must each have a key value that is distinct from the key values of the other own properties of that object.</p>
-      <p>All objects are logically collections of properties, but there are multiple forms of objects that differ in their semantics for accessing and manipulating their properties. <dfn id="ordinary-objects">Ordinary objects</dfn> are the most common form of objects and have the default object semantics. An <dfn id="exotic-object">exotic object</dfn> is any form of object whose property semantics differ in any way from the default semantics.</p>
+      <p>属性是用 key 值来识别的。一个属性的 key 值要么是一个 ECMAScript String 值，要么是 Symbol 值。所有这些包括空字符串都是合法属性值。当一个<dfn id="property-name">属性</dfn>的 key 是 String 值时，这个属性的 name 是这个属性的 key。</p>
+      <p>一个<dfn id="integer-index">整数索引</dfn> 是一个字符串值得属性 key，它是一个规范的数字 String (见 <emu-xref href="#sec-canonicalnumericindexstring"></emu-xref>) 它的数字值是 *+0* 或小于等于 &le; 2<sup>53</sup> - 1的正数。一个<dfn id="array-index">数组索引</dfn>是一个整数索引，它的数字值 _i_ 得范围是 <emu-eqn>+0 &le; _i_ &lt; 2<sup>32</sup> - 1</emu-eqn>。</p>
+      <p>属性 key 被用来访问属性以及他们的值。这里有两种对属性的访问： <em>get</em> 和 <em>set</em>，分别对应值得检索和赋值。通过 get 和 set 来进行属性访问既包括直接<em>自身属性</em> 也包括通过属性继承关系从其它对象继承来的属性。继承的属性也可能是另一个对象自身属性或继承属性。一个对象的每个自身属性必须有一个 key 值来区分它和这个对象的自身属性。</p>
+      <p>所有对象都是逻辑上的属性集合。但对象却有多种形式来区分访问既变化它们的属性语义。<dfn id="ordinary-objects">普通的对象</dfn>是对象最常见的形式，拥有默认的对象语义。<dfn id="exotic-object">外来对象</dfn>它的属性语义和默认语义各方面都有区别。</p>
 
       <emu-clause id="sec-property-attributes">
         <h1>Property Attributes</h1>
-        <p>Attributes are used in this specification to define and explain the state of Object properties. A data property associates a key value with the attributes listed in <emu-xref href="#table-2"></emu-xref>.</p>
+        <p>本规范中的属性被用作定义和解释对象属性的状态。一个数据属性与<emu-xref href="#table-2"></emu-xref>中列出的属性 key 值相关。</p>
         <emu-table id="table-2" caption="Attributes of a Data Property">
           <table>
             <tbody>
@@ -1142,10 +1137,10 @@
                 [[Value]]
               </td>
               <td>
-                Any ECMAScript language type
+                任意的 ECMAScript 语言类型
               </td>
               <td>
-                The value retrieved by a get access of the property.
+                访问属性时被检索到的值。
               </td>
             </tr>
             <tr>
@@ -1156,7 +1151,7 @@
                 Boolean
               </td>
               <td>
-                If *false*, attempts by ECMAScript code to change the property's [[Value]] attribute using [[Set]] will not succeed.
+                如果为 *false*，任何尝试通过 [[Set]] 去改变这个属性的 [[Value]] 属性都不会成功。
               </td>
             </tr>
             <tr>
@@ -1167,7 +1162,7 @@
                 Boolean
               </td>
               <td>
-                If *true*, the property will be enumerated by a for-in enumeration (see <emu-xref href="#sec-for-in-and-for-of-statements"></emu-xref>). Otherwise, the property is said to be non-enumerable.
+                如果为 *true*，这个属性被 for-in 枚举时将会可枚举 (见 <emu-xref href="#sec-for-in-and-for-of-statements"></emu-xref>)。否则这个属性将不可枚举。
               </td>
             </tr>
             <tr>
@@ -1178,13 +1173,13 @@
                 Boolean
               </td>
               <td>
-                If *false*, attempts to delete the property, change the property to be an accessor property, or change its attributes (other than [[Value]], or changing [[Writable]] to *false*) will fail.
+                如果为 *false*，任何尝试删除这个属性，把这个属性改为访问器属性，或者改变它的除了 [[Value]] 之外的属性，或者改变它的 [[Writable]] 为 *false*)的操作都会失败。
               </td>
             </tr>
             </tbody>
           </table>
         </emu-table>
-        <p>An accessor property associates a key value with the attributes listed in <emu-xref href="#table-3"></emu-xref>.</p>
+        <p>一个访问器属性与 <emu-xref href="#table-3"></emu-xref>列出的属性 key 值相关联。</p>
         <emu-table id="table-3" caption="Attributes of an Accessor Property">
           <table>
             <tbody>
@@ -1207,7 +1202,7 @@
                 Object | Undefined
               </td>
               <td>
-                If the value is an Object it must be a function object. The function's [[Call]] internal method (<emu-xref href="#table-6"></emu-xref>) is called with an empty arguments list to retrieve the property value each time a get access of the property is performed.
+                如果这个值是一个对象，那么它必须是一个函数对象。在每次访问这个属性的时候，这个函数内置的 [[Call]] 方法(<emu-xref href="#table-6"></emu-xref>) 将被调用，同时会向这个方法传入一个空的 arguments 。
               </td>
             </tr>
             <tr>
@@ -1218,7 +1213,7 @@
                 Object | Undefined
               </td>
               <td>
-                If the value is an Object it must be a function object. The function's [[Call]] internal method (<emu-xref href="#table-6"></emu-xref>) is called with an arguments list containing the assigned value as its sole argument each time a set access of the property is performed. The effect of a property's [[Set]] internal method may, but is not required to, have an effect on the value returned by subsequent calls to the property's [[Get]] internal method.
+                如果这个值是一个对象，那么它必须是一个函数。在每次设置这个属性的时候，这个函数的内置 [[Call]] 方法(<emu-xref href="#table-6"></emu-xref>) 将会被调用，同时会向这个方法传入包含所赋值的值的 arguments 作为唯一参数。[[Set]] 内置方法也许会对后续的 [[Get]] 内置方法调用产生返回值影响，但不是必须的。
               </td>
             </tr>
             <tr>
@@ -1229,7 +1224,7 @@
                 Boolean
               </td>
               <td>
-                If *true*, the property is to be enumerated by a for-in enumeration (see <emu-xref href="#sec-for-in-and-for-of-statements"></emu-xref>). Otherwise, the property is said to be non-enumerable.
+                如果为 *true*，这个属性被 for-in 枚举时将会是可枚举的 (见 <emu-xref href="#sec-for-in-and-for-of-statements"></emu-xref>)。否则这个属性就是不可枚举的。
               </td>
             </tr>
             <tr>
@@ -1240,13 +1235,13 @@
                 Boolean
               </td>
               <td>
-                If *false*, attempts to delete the property, change the property to be a data property, or change its attributes will fail.
+                如果为 *false*，任何尝试删除这个属性，把这个属性数据改为数据属性，或者改变它的其它属性操作都会失败。
               </td>
             </tr>
             </tbody>
           </table>
         </emu-table>
-        <p>If the initial values of a property's attributes are not explicitly specified by this specification, the default value defined in <emu-xref href="#table-4"></emu-xref> is used.</p>
+        <p>如果一个属性的 attributes 初始值没有被本规范显式地指定，那么使用<emu-xref href="#table-4"></emu-xref> 中的默认值。</p>
         <emu-table id="table-4" caption="Default Attribute Values">
           <table>
             <tbody>
@@ -1312,13 +1307,13 @@
       </emu-clause>
 
       <emu-clause id="sec-object-internal-methods-and-internal-slots">
-        <h1>Object Internal Methods and Internal Slots</h1>
-        <p>The actual semantics of objects, in ECMAScript, are specified via algorithms called <em>internal methods</em>. Each object in an ECMAScript engine is associated with a set of internal methods that defines its runtime behaviour. These internal methods are not part of the ECMAScript language. They are defined by this specification purely for expository purposes. However, each object within an implementation of ECMAScript must behave as specified by the internal methods associated with it. The exact manner in which this is accomplished is determined by the implementation.</p>
-        <p>Internal method names are polymorphic. This means that different object values may perform different algorithms when a common internal method name is invoked upon them. That actual object upon which an internal method is invoked is the &ldquo;target&rdquo; of the invocation. If, at runtime, the implementation of an algorithm attempts to use an internal method of an object that the object does not support, a *TypeError* exception is thrown.</p>
-        <p>Internal slots correspond to internal state that is associated with objects and used by various ECMAScript specification algorithms. Internal slots are not object properties and they are not inherited. Depending upon the specific internal slot specification, such state may consist of values of any ECMAScript language type or of specific ECMAScript specification type values. Unless explicitly specified otherwise, internal slots are allocated as part of the process of creating an object and may not be dynamically added to an object. Unless specified otherwise, the initial value of an internal slot is the value *undefined*. Various algorithms within this specification create objects that have internal slots. However, the ECMAScript language provides no direct way to associate internal slots with an object.</p>
-        <p>Internal methods and internal slots are identified within this specification using names enclosed in double square brackets [[ ]].</p>
-        <p><emu-xref href="#table-5"></emu-xref> summarizes the <em>essential internal methods</em> used by this specification that are applicable to all objects created or manipulated by ECMAScript code. Every object must have algorithms for all of the essential internal methods. However, all objects do not necessarily use the same algorithms for those methods.</p>
-        <p>The &ldquo;Signature&rdquo; column of <emu-xref href="#table-5"></emu-xref> and other similar tables describes the invocation pattern for each internal method. The invocation pattern always includes a parenthesized list of descriptive parameter names. If a parameter name is the same as an ECMAScript type name then the name describes the required type of the parameter value. If an internal method explicitly returns a value, its parameter list is followed by the symbol &ldquo;&rarr;&rdquo; and the type name of the returned value. The type names used in signatures refer to the types defined in clause <emu-xref href="#sec-ecmascript-data-types-and-values"></emu-xref> augmented by the following additional names. &ldquo;<em>any</em>&rdquo; means the value may be any ECMAScript language type. An internal method implicitly returns a Completion Record. In addition to its parameters, an internal method always has access to the object that is the target of the method invocation.</p>
+        <h1>对象的内置方法和内置槽</h1>
+        <p>在 ECMAScript 中，对象的实际语义是通过算法来调用内置方法指定的。在 ECMAScript 引擎中的每个对象都与一系列的定义它运行时行为的内置方法相关联。这些内置方法不属于 ECMAScript 语言的一部分。通过本规范定义它们的部分仅仅是为了解释说明的目的。然而，在ECMAScript具体实现中的每个对象必须表现得像这些内置方法与它关联了一样。其中的准确的行为由实现来决定。</p>
+        <p>内置方法的名称是多样的。这意味着当一个常见的内置方法被调用的时候，不同的对象值也许会运行不同的算法。内置方法被调用时实际的对象成为这个调用的目标。如果在运行时一个算法的实现尝试去使用一个对象不支持的内置方法，会抛出 *TypeError* 。</p>
+        <p>内置槽对应相关联对象的内部状态。被 ECMAScript 规范中不同的算法使用。内置槽不是对象属性，也不会被继承。根据规范中具体的内置槽，这样的内部状态也许包含任意 ECMAScript 语言类型的值或指定的 ECMAScript 规范类型的值。除非显式地指定，否则内置槽作为创建一个对象的一部分过程被分配，并且也许不能被动态地添加到对象上。除非显式地指定，否则一个内置槽的初始值是 *undefined*。本规范内不同算法都会创建有内置槽的对象。然而， ECMAScript 语言不提供直接的方法访问一个对象的内置槽。</p>
+        <p>本规范内置方法和内置槽使用闭合双括号 [[ ]] 来标识。</p>
+        <p><emu-xref href="#table-5"></emu-xref> 总结了适用所有对象的创建或被 ECMAScript 代码操作的至关重要的 <em>内置方法</em>。每个对象对于所有至关重要的算法都必须有相应的算法。然而所有对象没有必要对哪些方法使用相同的算法。</p>
+        <p> <emu-xref href="#table-5"></emu-xref>  中&ldquo;Signature&rdquo; 列出了其它相似的表格描述了每个内置方法的调用模式。调用模式总是包含一个括起来的描述参数名列表。如果一个参数名与 ECMAScript 类型的名字一样，那么 代表描述的是参数值需要的类型。如果一个内置方法显式地返回一个值，它的参数列表随后就会跟着一个 &ldquo;&rarr;&rdquo; 符号，以及返回值得类型。在 signatures 中使用的类型名字在 <emu-xref href="#sec-ecmascript-data-types-and-values"></emu-xref> 中定义的类型，另外还增加了下面的方法。&ldquo;<em>any</em>&rdquo; 代表这个值也许是任意 ECMAScript 语言类型。一个内置方法会隐式地返回一个完成记录。除了它的参数，一个内置方法还会总会访问这个方法调用的对象的目标。</p>
         <emu-table id="table-5" caption="Essential Internal Methods">
           <table>
             <tbody>
@@ -1341,7 +1336,7 @@
                 ( ) <b>&rarr;</b> Object | Null
               </td>
               <td>
-                Determine the object that provides inherited properties for this object. A *null* value indicates that there are no inherited properties.
+                确定为这个对象提供继承的属性对象。一个 *null* 值代表没有继承的属性。
               </td>
             </tr>
             <tr>
@@ -1352,7 +1347,7 @@
                 (Object | Null) <b>&rarr;</b> Boolean
               </td>
               <td>
-                Associate this object with another object that provides inherited properties. Passing *null* indicates that there are no inherited properties. Returns *true* indicating that the operation was completed successfully or *false* indicating that the operation was not successful.
+                将这个对象与提供继承的属性的对象相关联。传递 *null* 表示没有继承的属性。返回 *true* 表示操作成功，返回 *false* 表示操作失败。
               </td>
             </tr>
             <tr>
@@ -1363,7 +1358,7 @@
                 ( ) <b>&rarr;</b> Boolean
               </td>
               <td>
-                Determine whether it is permitted to add additional properties to this object.
+                决定是否添加额外的属性到这个对象上。
               </td>
             </tr>
             <tr>
@@ -1374,7 +1369,7 @@
                 ( ) <b>&rarr;</b> Boolean
               </td>
               <td>
-                Control whether new properties may be added to this object. Returns *true* if the operation was successful or *false* if the operation was unsuccessful.
+                控制一个新的属性是否能加到这个对象上。返回 *true* 表示成功，返回 *false* 表示失败。
               </td>
             </tr>
             <tr>
@@ -1385,7 +1380,7 @@
                 (_propertyKey_) <b>&rarr;</b> Undefined | Property Descriptor
               </td>
               <td>
-                Return a Property Descriptor for the own property of this object whose key is _propertyKey_, or *undefined* if no such property exists.
+                返回这个对象的一个自身属性的属性描述符，它的 key 为 _propertyKey_或者  *undefined* （如果不存在的话)
               </td>
             </tr>
             <tr>
@@ -1396,7 +1391,7 @@
                 (_propertyKey_, _PropertyDescriptor_) <b>&rarr;</b> Boolean
               </td>
               <td>
-                Create or alter the own property, whose key is _propertyKey_, to have the state described by _PropertyDescriptor_. Return *true* if that property was successfully created/updated or *false* if the property could not be created or updated.
+                创建或改变自身属性，它的 key 为 _propertyKey_，状态为 _PropertyDescriptor_。返回 *true* 表示属性被成功创建/更新，返回 *false* 表示属性不能被创建/更新。
               </td>
             </tr>
             <tr>
@@ -1407,7 +1402,7 @@
                 (_propertyKey_) <b>&rarr;</b> Boolean
               </td>
               <td>
-                Return a Boolean value indicating whether this object already has either an own or inherited property whose key is _propertyKey_.
+                返回一个 Boolean 值表示这个对象是否已经有一个自身或继承 key 为 _propertyKey_ 的属性。
               </td>
             </tr>
             <tr>
@@ -1418,7 +1413,7 @@
                 (_propertyKey_, _Receiver_) <b>&rarr;</b> <em>any</em>
               </td>
               <td>
-                Return the value of the property whose key is _propertyKey_ from this object. If any ECMAScript code must be executed to retrieve the property value, _Receiver_ is used as the *this* value when evaluating the code.
+                返回这个对象里 key 值为 _propertyKey_ 的属性 值。如果任何 ECMAScript 代码必须被运行来检测这个属性值， _Receiver_ 就会被解析为代码时 *this* 值。
               </td>
             </tr>
             <tr>
@@ -1429,7 +1424,7 @@
                 (_propertyKey_, _value_, _Receiver_) <b>&rarr;</b> Boolean
               </td>
               <td>
-                Set the value of the property whose key is _propertyKey_ to _value_. If any ECMAScript code must be executed to set the property value, _Receiver_ is used as the *this* value when evaluating the code. Returns *true* if the property value was set or *false* if it could not be set.
+                设置这个对象中 key 为 _propertyKey_ 的属性值为 _value_。如果任何 ECMAScript 代码必须被运行来检索这个属性值，_Receiver_ 就会作为解析代码时的 *this* 值。如果属性能被设置则返回 *true* ，否则返回 *false* 。
               </td>
             </tr>
             <tr>
@@ -1440,7 +1435,7 @@
                 (_propertyKey_) <b>&rarr;</b> Boolean
               </td>
               <td>
-                Remove the own property whose key is _propertyKey_ from this object. Return *false* if the property was not deleted and is still present. Return *true* if the property was deleted or is not present.
+                移除这个对象的 key 为 _propertyKey_ 的自身属性。返回 *false* 表示这个属性没有被移除，仍然存在。返回 *true* 表示已经移除不存在。
               </td>
             </tr>
             <tr>
@@ -1451,13 +1446,13 @@
                 ( ) <b>&rarr;</b> List of propertyKey
               </td>
               <td>
-                Return a List whose elements are all of the own property keys for the object.
+                返回元素对象自身属性 key 的 List。
               </td>
             </tr>
             </tbody>
           </table>
         </emu-table>
-        <p><emu-xref href="#table-6"></emu-xref> summarizes additional essential internal methods that are supported by objects that may be called as functions. A <dfn id="function-object">function object</dfn> is an object that supports the [[Call]] internal method. A <dfn id="constructor">constructor</dfn> is an object that supports the [[Construct]] internal method. Every object that supports [[Construct]] must support [[Call]]; that is, every constructor must be a function object. Therefore, a constructor may also be referred to as a <em>constructor function</em> or <em>constructor function object</em>.</p>
+        <p><emu-xref href="#table-6"></emu-xref> 总结了也许会被当作函数来调用的对象额外重要的内置方法。一个<dfn id="function-object">函数对象</dfn> 是支持 [[Call]] 内置方法的对象。一个 <dfn id="constructor">构造函数</dfn> 是一个支持 [[Construct]] 内置方法的函数对象。支持 [[Construct]] 的每个对象都必须支持 [[Call]]。也就是说，每个构造器都必须是一个函数对象。因此，构造器也可以称为 <em>构造函数</em> 或 <em>构造函数对象</em>。</p>
         <emu-table id="table-6" caption="Additional Essential Internal Methods of Function Objects">
           <table>
             <tbody>
@@ -1480,7 +1475,7 @@
                 (<em>any</em>, a List of <em>any</em>) <b>&rarr;</b> <em>any</em>
               </td>
               <td>
-                Executes code associated with this object. Invoked via a function call expression. The arguments to the internal method are a *this* value and a list containing the arguments passed to the function by a call expression. Objects that implement this internal method are <em>callable</em>.
+                执行这个对象相关代码。通过函数调用表达式。内置方法的参数是 *this* 值和包含通过调用表达式传递给函数的参数列表。实现此内部方法的对象是 <em>callable</em>。
               </td>
             </tr>
             <tr>
@@ -1491,54 +1486,54 @@
                 (a List of <em>any</em>, Object) <b>&rarr;</b> Object
               </td>
               <td>
-                Creates an object. Invoked via the `new` or `super` operators. The first argument to the internal method is a list containing the arguments of the operator. The second argument is the object to which the `new` operator was initially applied. Objects that implement this internal method are called <em>constructors</em>. A function object is not necessarily a constructor and such non-constructor function objects do not have a [[Construct]] internal method.
+                创建一个对象。通过 `new` 或 `super` 运算符调用。内置方法的第一个参数是包含运算符参数的列表。第二个参数是最初应用 `new` 运算符的对象。实现此内部方法的对象称为<em>constructors</em>。函数对象不一定是构造函数，并且此类非构造函数对象没有 [[Construct]] 内置方法。
               </td>
             </tr>
             </tbody>
           </table>
         </emu-table>
-        <p>The semantics of the essential internal methods for ordinary objects and standard exotic objects are specified in clause <emu-xref href="#sec-ordinary-and-exotic-objects-behaviours"></emu-xref>. If any specified use of an internal method of an exotic object is not supported by an implementation, that usage must throw a *TypeError* exception when attempted.</p>
+        <p>这些普通对象和标准外来对象的基本内置方法语义在 <emu-xref href="#sec-ordinary-and-exotic-objects-behaviours"></emu-xref>中规范。如果一个外来对象的任何内置方法使用不被实现所支持，那么尝试使用这个方法时必须抛出 *TypeError* 异常。</p>
       </emu-clause>
 
       <emu-clause id="sec-invariants-of-the-essential-internal-methods">
-        <h1>Invariants of the Essential Internal Methods</h1>
-        <p>The Internal Methods of Objects of an ECMAScript engine must conform to the list of invariants specified below. Ordinary ECMAScript Objects as well as all standard exotic objects in this specification maintain these invariants. ECMAScript Proxy objects maintain these invariants by means of runtime checks on the result of traps invoked on the [[ProxyHandler]] object.</p>
-        <p>Any implementation provided exotic objects must also maintain these invariants for those objects. Violation of these invariants may cause ECMAScript code to have unpredictable behaviour and create security issues. However, violation of these invariants must never compromise the memory safety of an implementation.</p>
-        <p>An implementation must not allow these invariants to be circumvented in any manner such as by providing alternative interfaces that implement the functionality of the essential internal methods without enforcing their invariants.</p>
-        <h2>Definitions:</h2>
+        <h1>基本内置方法的不变量</h1>
+        <p>ECMAScript 引擎中的对象的内置方法必须复合以下指定的不变量列表。普通的 ECMAScript 对象以及本规范中标准外来对象维护的不变量。ECMAScript 代理通过对 [[ProxyHandler]] 对象被调用的结果作为运行时检查来维护这些不变量。</p>
+        <p>任何提供外来对象的实现也必须维护这些对象的不变量。违反这些不变量也许会造成 ECMAScript 代码出现不可预测的行为以及安全问题。然而，一个实现对于违反不变量的行为在内存安全问题上绝对不能妥协。</p>
+        <p>一个实现必须不允许这些不变量在任何例如提供实现至关重要的内置方法的功能，但是没有执行他们不变量的可选接口行为中规避。</p>
+        <h2>定义:</h2>
         <ul>
           <li>
-            The <em>target</em> of an internal method is the object upon which the internal method is called.
+            内置方法的 <em>target</em> 是一个对象，它的内置方法会被调用。
           </li>
           <li>
-            A target is <em>non-extensible</em> if it has been observed to return false from its [[IsExtensible]] internal method, or true from its [[PreventExtensions]] internal method.
+            如果已经观察到目标是<em>不可扩展</em>，则从其 [[IsExtensible]] 内置方法返回 false，或从 [[PreventExtensions]] 内置方法返回true。
           </li>
           <li>
-            A <em>non-existent</em> property is a property that does not exist as an own property on a non-extensible target.
+            一个<em>不存在</em>的属性指那些不可扩展的 target 自身属性上不存在的属性。
           </li>
           <li>
-            All references to <em>SameValue</em> are according to the definition of the SameValue algorithm.
+            所有引用 <em>SameValue</em> 的地方都根据 SameValue 算法。
           </li>
         </ul>
         <h2>[[GetPrototypeOf]] ( )</h2>
         <ul>
           <li>
-            The Type of the return value must be either Object or Null.
+            返回值的类型必须是 Object 或 Null。
           </li>
           <li>
-            If target is non-extensible, and [[GetPrototypeOf]] returns a value v, then any future calls to [[GetPrototypeOf]] should return the SameValue as v.
+            如果 target 是不可扩展的，且 [[GetPrototypeOf]] 返回一个 v 值，那么任何将来的对 [[GetPrototypeOf]] 的调用都应用返回 v 的 SameValue。
           </li>
         </ul>
         <emu-note>
-          <p>An object's prototype chain should have finite length (that is, starting from any object, recursively applying the [[GetPrototypeOf]] internal method to its result should eventually lead to the value null). However, this requirement is not enforceable as an object level invariant if the prototype chain includes any exotic objects that do not use the ordinary object definition of [[GetPrototypeOf]]. Such a circular prototype chain may result in infinite loops when accessing object properties.</p>
+          <p>一个对象的原型链的长度应用有限制的（也就是说，从任意对象开始，递归的结果应该用 [[GetPrototypeOf]] 内置方法最终得到 null)。然而如果这个原型链包含任意的不使用普通对象的 [[GetPrototypeOf]]来定义外来对象，那么作为一个对象的不变量不是强制的。当访问对象属性的时候，这样的一个环形原型链也许最终会导致无限循环。</p>
         </emu-note>
         <h2>[[SetPrototypeOf]] (_V_)</h2>
         <ul>
           <li>
-            The Type of the return value must be Boolean.
+            返回值类型不需是 Boolean。
           </li>
           <li>
-            If target is non-extensible, [[SetPrototypeOf]] must return false, unless V is the SameValue as the target's observed [[GetPrototypeOf]] value.
+            如果 target 是不可扩展的，[[SetPrototypeOf]] 必须返回 false，除非 V 是 target 观察到 [[GetPrototypeOf]]  值的 SameValue。
           </li>
         </ul>
         <h2>[[IsExtensible]] ( )</h2>
@@ -41011,3 +41006,6 @@ THH:mm:ss.sss
     </li>
   </ol>
 </emu-annex>
+  
+
+
